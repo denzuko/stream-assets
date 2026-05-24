@@ -6,6 +6,9 @@
 {{- $series := .Site.Data.series -}}
 <div class="scene scene--light" style="display:flex;align-items:center;justify-content:center;flex-direction:column;">
 
+  <!-- Background photo layer — liminal space, low opacity -->
+  <div style="position:absolute;inset:0;background:url('/img/bg-liminal-space.jpg') center/cover no-repeat;opacity:.08;filter:grayscale(1);"></div>
+
   <div style="position:absolute;bottom:22px;left:28px;opacity:.05">
     {{ partial "eyemark.html" (dict "size" 90 "bg" "#fffdfa" "fg" "#111") }}
   </div>

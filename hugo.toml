@@ -1,7 +1,8 @@
 baseURL       = "https://denzuko.github.io/stream-assets/"
 locale        = "en-us"
 title         = "stream-assets"
-disableKinds  = ["home","section","taxonomy","term","RSS","sitemap","robotsTXT"]
+disableKinds  = ["section","taxonomy","term","RSS","sitemap","robotsTXT"]
 
 [outputs]
+  home = ["HTML"]
   page = ["HTML"]
