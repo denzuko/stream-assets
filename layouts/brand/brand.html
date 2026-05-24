@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{ partial "head.html" . }}
+  <link rel="stylesheet" href="/css/brand.css">
+  <title>Brand Guide · {{ .Site.Data.stream.handle }}</title>
+  <style>
+    body { overflow: auto; padding: 0; }
+
+    .page { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+
+    /* Section */
+    .section { margin-bottom: 4rem; }
+    .section-title {
+      font-family: var(--font-mono);
+      font-size: 11px; letter-spacing: .12em;
+      text-transform: uppercase; opacity: .4;
+      padding-bottom: .75rem;
+      border-bottom: 1px dotted rgba(17,17,17,.15);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Header */
+    .brand-header {
+      padding: 3rem 0 2rem;
+      border-bottom: 1px dotted rgba(17,17,17,.15);
+      margin-bottom: 3rem;
+    }
+    .brand-name {
+      font-family: var(--font-mono);
+      font-size: clamp(32px,5vw,64px);
+      letter-spacing: .03em; line-height: 1;
+    }
+    .brand-sub {
+      font-family: var(--font-mono);
+      font-size: 14px; opacity: .35;
+      letter-spacing: .08em; margin-top: 12px;
+    }
+
+    /* Color swatches */
+    .swatches { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .swatch {
+      width: 140px;
+    }
+    .swatch-color {
+      height: 80px; border-radius: 2px;
+      border: 1px solid rgba(0,0,0,.08);
+    }
+    .swatch-name {
+      font-family: var(--font-mono);
+      font-size: 12px; margin-top: 6px; line-height: 1.5;
+    }
+    .swatch-hex { opacity: .45; font-size: 11px; }
+    .swatch-use { opacity: .35; font-size: 10px; letter-spacing: .04em; }
+
+    /* Type specimens */
+    .type-row {
+      padding: 1.5rem 0;
+      border-bottom: 1px dotted rgba(17,17,17,.1);
+    }
+    .type-row:last-child { border-bottom: none; }
+    .type-label { font-size: 10px; opacity: .35; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem; font-family: var(--font-mono); }
+    .type-specimen { line-height: 1.3; }
+
+    /* Mark grid */
+    .mark-grid { display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-end; }
+    .mark-item { text-align: center; }
+    .mark-label { font-family: var(--font-mono); font-size: 10px; opacity: .35; margin-top: 8px; letter-spacing: .06em; }
+
+    /* Rule specimens */
+    .rule-specimens > * + * { margin-top: 1.5rem; }
+
+    /* Do / Don't */
+    .dos-donts { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .do, .dont {
+      padding: 1rem 1.25rem;
+      border-radius: 2px;
+      border-left: 3px solid;
+    }
+    .do   { border-color: rgba(17,17,17,.4); }
+    .dont { border-color: rgba(17,17,17,.2); }
+    .do-label, .dont-label {
+      font-family: var(--font-mono);
+      font-size: 10px; letter-spacing: .1em;
+      text-transform: uppercase; opacity: .45; margin-bottom: .5rem;
+    }
+    .dont { opacity: .5; }
+    .dont * { text-decoration: line-through; }
+    .dont .dont-label { text-decoration: none; }
+
+    /* Asset download cards */
+    .asset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 1rem; }
+    .asset-card {
+      border: 1px dotted rgba(17,17,17,.15);
+      border-radius: 2px; overflow: hidden;
+    }
+    .asset-preview {
+      aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;
+      background: rgba(17,17,17,.03);
+    }
+    .asset-preview--dark { background: #0d0d0b; }
+    .asset-meta {
+      padding: .6rem .75rem;
+      border-top: 1px dotted rgba(17,17,17,.12);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .asset-name { font-family: var(--font-mono); font-size: 11px; opacity: .6; }
+    .asset-dl {
+      font-family: var(--font-mono); font-size: 10px;
+      color: var(--ink); opacity: .35;
+      text-decoration: none; border: 1px dotted rgba(17,17,17,.2);
+      padding: 2px 7px; border-radius: 2px;
+    }
+    .asset-dl:hover { opacity: .7; }
+
+    /* Code blocks */
+    .code {
+      background: rgba(17,17,17,.04);
+      border-left: 2px solid rgba(17,17,17,.15);
+      padding: .75rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 12px; line-height: 1.7;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+{{- $b := .Site.Data.brand -}}
+{{- $s := .Site.Data.stream -}}
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="brand-header">
+    <div class="brand-name">{{ $b.identity.name }}<span class="cursor"></span></div>
+    <div class="brand-sub">{{ $b.identity.tagline }}</div>
+    <div style="margin-top:1.5rem;font-family:var(--font-mono);font-size:12px;opacity:.25;line-height:2;">
+      {{ $b.identity.site }} &nbsp;·&nbsp;
+      {{ $b.identity.handle_community }} / {{ $b.identity.handle_commercial }} &nbsp;·&nbsp;
+      {{ $b.identity.pgp }}
+    </div>
+  </div>
+
+  <!-- Color palette -->
+  <div class="section">
+    <div class="section-title">Color palette</div>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#fffdfa"></div>
+        <div class="swatch-name">Cream<br><span class="swatch-hex">#fffdfa</span><br><span class="swatch-use">Primary background</span></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#111111"></div>
+        <div class="swatch-name">Ink<br><span class="swatch-hex">#111111</span><br><span class="swatch-use">Primary foreground</span></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#0d0d0b"></div>
+        <div class="swatch-name">Dark<br><span class="swatch-hex">#0d0d0b</span><br><span class="swatch-use">Dark mode bg, off-air</span></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#d1fae5"></div>
+        <div class="swatch-name">Text dark<br><span class="swatch-hex">#d1fae5</span><br><span class="swatch-use">Text on dark bg</span></div>
+      </div>
+      <div class="swatch" style="border-top:2px solid rgba(17,17,17,.1);padding-top:.75rem;margin-top:.25rem">
+        <div class="swatch-color" style="background:#39ff14"></div>
+        <div class="swatch-name">Green<br><span class="swatch-hex">#39ff14</span><br><span class="swatch-use">Monitoring only</span></div>
+      </div>
+      <div class="swatch" style="padding-top:.75rem;margin-top:.25rem">
+        <div class="swatch-color" style="background:#ffab00"></div>
+        <div class="swatch-name">Amber<br><span class="swatch-hex">#ffab00</span><br><span class="swatch-use">Monitoring only</span></div>
+      </div>
+      <div class="swatch" style="padding-top:.75rem;margin-top:.25rem">
+        <div class="swatch-color" style="background:#ff1744"></div>
+        <div class="swatch-name">Red<br><span class="swatch-hex">#ff1744</span><br><span class="swatch-use">Monitoring only</span></div>
+      </div>
+    </div>
+    <p style="font-family:var(--font-mono);font-size:11px;opacity:.35;margin-top:1rem;line-height:1.7;">
+      Green/amber/red are infrastructure signal colours — off-air and T-Pot monitoring scenes only.<br>
+      Do not use them as accent colours in editorial or stream content contexts.
+    </p>
+  </div>
+
+  <!-- Typography -->
+  <div class="section">
+    <div class="section-title">Typography</div>
+    <div class="type-row">
+      <div class="type-label">Share Tech Mono — handles, labels, metadata, code, ticker, PGP, ORCID</div>
+      <div class="type-specimen" style="font-family:var(--font-mono);font-size:36px;">denzuko▮</div>
+      <div class="type-specimen" style="font-family:var(--font-mono);font-size:18px;opacity:.45;margin-top:.5rem;letter-spacing:.08em;">0x5DCBF78E3F9C3FE3</div>
+      <div class="type-specimen" style="font-family:var(--font-mono);font-size:13px;opacity:.35;margin-top:.5rem;letter-spacing:.12em;text-transform:uppercase;">INFRASTRUCTURE · PRIVACY · SYSTEMS</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Bricolage Grotesque — prose, cause names, longer descriptive text</div>
+      <div class="type-specimen" style="font-family:var(--font-sans);font-size:28px;font-weight:500;">Systems design and infrastructure sovereignty.</div>
+      <div class="type-specimen" style="font-family:var(--font-sans);font-size:16px;opacity:.6;margin-top:.5rem;line-height:1.6;">The node is a playground. Infrastructure built live, broken intentionally, rebuilt better.</div>
+    </div>
+  </div>
+
+  <!-- Mark -->
+  <div class="section">
+    <div class="section-title">Eye in lens mark — 25° diagonal</div>
+    <div class="mark-grid">
+      <div class="mark-item">
+        {{ partial "eyemark.html" (dict "size" 160 "bg" "#fffdfa" "fg" "#111") }}
+        <div class="mark-label">A — full barrel<br>Q1 / Q4</div>
+      </div>
+      <div class="mark-item">
+        {{ partial "eyemark.html" (dict "size" 80 "bg" "#fffdfa" "fg" "#111") }}
+        <div class="mark-label">64px</div>
+      </div>
+      <div class="mark-item">
+        {{ partial "eyemark.html" (dict "size" 40 "bg" "#fffdfa" "fg" "#111") }}
+        <div class="mark-label">32px</div>
+      </div>
+      <div class="mark-item">
+        {{ partial "eyemark.html" (dict "size" 20 "bg" "#fffdfa" "fg" "#111") }}
+        <div class="mark-label">16px</div>
+      </div>
+      <div class="mark-item" style="background:#0d0d0b;padding:1rem;border-radius:2px;">
+        {{ partial "eyemark.html" (dict "size" 80 "bg" "#0d0d0b" "fg" "#d1fae5") }}
+        <div class="mark-label" style="color:#d1fae5;opacity:.4;">dark mode</div>
+      </div>
+      <div class="mark-item" style="opacity:.08;">
+        {{ partial "eyemark.html" (dict "size" 80 "bg" "#fffdfa" "fg" "#111") }}
+        <div class="mark-label">watermark<br>.08 opacity</div>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem">
+      <div class="type-label" style="margin-bottom:.75rem">Quarterly rotation schedule</div>
+      <div style="font-family:var(--font-mono);font-size:12px;line-height:2.2;opacity:.6;">
+        Q1 Jan — favicon-a.svg (full barrel)<br>
+        Q2 Apr — favicon-b.svg (cropped, Warhol)<br>
+        Q3 Jul — favicon-c.svg (iris only)<br>
+        Q4 Oct — favicon-a.svg (full barrel)<br>
+        <span style="opacity:.5">Rotate alongside warrant canary and /now page update</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rules and borders -->
+  <div class="section">
+    <div class="section-title">Rules and borders</div>
+    <div class="rule-specimens">
+      <div>
+        <div class="type-label" style="margin-bottom:.5rem">Full-width dotted rule</div>
+        <hr style="border:none;border-top:1px dotted #ccc;">
+      </div>
+      <div>
+        <div class="type-label" style="margin-bottom:.5rem">Centered rule (38% width)</div>
+        <hr style="border:none;border-top:1px dotted #ccc;width:38%;">
+      </div>
+      <div>
+        <div class="type-label" style="margin-bottom:.5rem">Dark mode rule</div>
+        <div style="background:#0d0d0b;padding:1rem;border-radius:2px;">
+          <hr style="border:none;border-top:1px dotted rgba(209,250,229,.12);">
+        </div>
+      </div>
+    </div>
+    <p style="font-family:var(--font-mono);font-size:11px;opacity:.35;margin-top:1rem;line-height:1.7;">
+      No grid lines. No box shadows. No gradients. No border-radius greater than 4px.<br>
+      Structure comes from whitespace and dotted rules only.
+    </p>
+  </div>
+
+  <!-- CSS import -->
+  <div class="section">
+    <div class="section-title">Using brand.css</div>
+    <div class="code">/* Import canonical tokens */<br>@import url('https://denzuko.github.io/stream-assets/css/brand.css');<br><br>/* Or self-host */<br>&lt;link rel="stylesheet" href="/css/brand.css"&gt;</div>
+    <p style="font-family:var(--font-mono);font-size:11px;opacity:.35;margin-top:1rem;">
+      brand.css exports all CSS custom properties. Import it at the top of any project stylesheet.
+    </p>
+  </div>
+
+  <!-- Do / Don't -->
+  <div class="section">
+    <div class="section-title">Usage — do and don't</div>
+    <div class="dos-donts">
+      <div class="do">
+        <div class="do-label">Do</div>
+        <div style="font-family:var(--font-mono);font-size:12px;line-height:2;">
+          Use dotted rules for structure<br>
+          Use whitespace as layout<br>
+          Use Share Tech Mono for all labels<br>
+          Use cream/ink as the primary pair<br>
+          Use the eye/lens mark as the site mark<br>
+          Use the blinking cursor ▮ as punctuation<br>
+          Use green/amber/red for monitoring only<br>
+          Invert the mark for dark mode
+        </div>
+      </div>
+      <div class="dont">
+        <div class="dont-label">Don't</div>
+        <div style="font-family:var(--font-mono);font-size:12px;line-height:2;">
+          Grid lines as background texture<br>
+          Gradients anywhere<br>
+          Drop shadows<br>
+          Border-radius over 4px<br>
+          Cyberpunk / neon palette (except off-air)<br>
+          Borrowed institutional identity<br>
+          DevOps framing<br>
+          Da Planet Security in this persona
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Asset downloads -->
+  <div class="section">
+    <div class="section-title">Assets</div>
+    <div class="asset-grid">
+      <div class="asset-card">
+        <div class="asset-preview">
+          {{ partial "eyemark.html" (dict "size" 64 "bg" "#fffdfa" "fg" "#111") }}
+        </div>
+        <div class="asset-meta">
+          <span class="asset-name">favicon-a.svg</span>
+          <a class="asset-dl" href="/assets/favicon-a.svg" download>↓ svg</a>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview">
+          {{ partial "eyemark.html" (dict "size" 64 "bg" "#fffdfa" "fg" "#111") }}
+        </div>
+        <div class="asset-meta">
+          <span class="asset-name">favicon-b.svg</span>
+          <a class="asset-dl" href="/assets/favicon-b.svg" download>↓ svg</a>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview">
+          {{ partial "eyemark.html" (dict "size" 64 "bg" "#fffdfa" "fg" "#111") }}
+        </div>
+        <div class="asset-meta">
+          <span class="asset-name">favicon-c.svg</span>
+          <a class="asset-dl" href="/assets/favicon-c.svg" download>↓ svg</a>
+        </div>
+      </div>
+      <div class="asset-card">
+        <div class="asset-preview" style="background:#111;">
+          <img src="/img/bmac-header-preview.png" style="width:100%;height:100%;object-fit:cover;opacity:.8;" onerror="this.style.display='none'">
+          <span style="font-family:var(--font-mono);font-size:10px;color:#fff;opacity:.4;position:absolute;">1600×400</span>
+        </div>
+        <div class="asset-meta">
+          <span class="asset-name">bmac-header.png</span>
+          <a class="asset-dl" href="/assets/bmac-header.png" download>↓ png</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="border-top:1px dotted rgba(17,17,17,.15);padding-top:1.5rem;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;opacity:.25;">
+    <span>denzuko.github.io/stream-assets/brand/</span>
+    <span>{{ $b.identity.pgp }}</span>
+  </div>
+
+</div>
+</body>
+</html>

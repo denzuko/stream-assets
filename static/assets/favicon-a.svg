@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">
+  <!-- Eye in lens, 25° — Version A: full barrel. dwightaspencer.com -->
+  <circle cx="80" cy="80" r="78" fill="#111"/>
+  <circle cx="80" cy="80" r="62" fill="#fffdfa"/>
+  <circle cx="80" cy="80" r="54" fill="#111"/>
+  <ellipse cx="80" cy="80" rx="48" ry="28" fill="#fffdfa" transform="rotate(-25 80 80)"/>
+  <circle cx="80" cy="80" r="22" fill="#111"/>
+  <circle cx="80" cy="80" r="11" fill="#fffdfa"/>
+  <circle cx="80" cy="80" r="4" fill="#111"/>
+  <circle cx="73" cy="74" r="2.5" fill="#fffdfa"/>
+</svg>

@@ -1,0 +1,125 @@
+/**
+ * brand.css — Dwight Spencer / denzuko / zekodun
+ * Canonical design tokens for the entire persona ecosystem.
+ * Import this in any project: dwightaspencer.com, stream-assets, publications.
+ *
+ * Source of truth: data/brand.yaml in denzuko/stream-assets
+ */
+
+:root {
+  /* Core palette */
+  --cream:      #fffdfa;
+  --ink:        #111111;
+  --dark:       #0d0d0b;
+
+  /* Infrastructure / monitoring signals — off-air context only */
+  --green:      #39ff14;
+  --amber:      #ffab00;
+  --red:        #ff1744;
+  --text-dark:  #d1fae5;
+
+  /* Rules */
+  --rule:       rgba(17,17,17,.15);
+  --rule-dark:  rgba(209,250,229,.08);
+  --muted:      rgba(17,17,17,.35);
+
+  /* Typography */
+  --font-mono:  'Share Tech Mono', 'Courier New', monospace;
+  --font-sans:  'Bricolage Grotesque', system-ui, sans-serif;
+
+  /* Spacing scale */
+  --space-xs:   4px;
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   24px;
+  --space-xl:   48px;
+
+  /* Mark rotation */
+  --mark-rotation: -25deg;
+}
+
+/* Dark mode — system preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cream: #0d0d0b;
+    --ink:   #d1fae5;
+  }
+}
+
+/* Base reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Body defaults */
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Dotted rule — the site's structural element */
+.rule {
+  border: none;
+  border-top: 1px dotted currentColor;
+  opacity: .15;
+  width: 100%;
+}
+.rule--centered { width: 38%; }
+.rule--short    { width: 20%; }
+
+/* Blinking cursor */
+.cursor {
+  display: inline-block;
+  width: .52em;
+  height: .78em;
+  background: currentColor;
+  margin-left: .06em;
+  vertical-align: -.08em;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* Eye/lens mark — dark mode invert */
+.eyemark { display: block; }
+@media (prefers-color-scheme: dark) {
+  .eyemark { filter: invert(1); }
+}
+[data-theme="dark"] .eyemark { filter: invert(1); }
+
+/* Ticker */
+.ticker {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker__inner {
+  display: inline-block;
+  animation: ticker 28s linear infinite;
+}
+@keyframes ticker {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(-100%); }
+}
+
+/* Utility — muted text */
+.muted     { opacity: .35; }
+.very-muted { opacity: .15; }
+
+/* Utility — mono label */
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .45;
+}
+
+/* Ping dot — attack/monitoring indicator */
+.dot {
+  border-radius: 50%;
+  animation: ping 2.5s ease-out infinite;
+}
+@keyframes ping {
+  0%   { opacity: .9; transform: scale(1); }
+  70%  { opacity: 0;  transform: scale(4); }
+  100% { opacity: 0;  }
+}

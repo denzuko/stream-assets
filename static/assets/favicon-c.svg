@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">
+  <!-- Eye in lens, 25° — Version C: iris only, no barrel. dwightaspencer.com -->
+  <circle cx="80" cy="80" r="78" fill="#111"/>
+  <ellipse cx="80" cy="80" rx="64" ry="37" fill="#fffdfa" transform="rotate(-25 80 80)"/>
+  <circle cx="80" cy="80" r="27" fill="#111"/>
+  <circle cx="80" cy="80" r="14" fill="#fffdfa"/>
+  <circle cx="80" cy="80" r="5" fill="#111"/>
+  <circle cx="73" cy="74" r="3" fill="#fffdfa"/>
+</svg>

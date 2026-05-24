@@ -1,0 +1,74 @@
+# brand.yaml — Dwight Spencer / denzuko / zekodun
+# Single source of truth for all design tokens
+# Consumed by: stream-assets templates, brand guide, dwightaspencer.com (via submodule)
+
+identity:
+  name: Dwight Spencer
+  handle_community: denzuko
+  handle_commercial: zekodun
+  site: dwightaspencer.com
+  pgp: 0x5DCBF78E3F9C3FE3
+  orcid: 0009-0001-0066-4646
+  tagline: systems design · digital civil liberties · infrastructure sovereignty
+
+colors:
+  # Core palette
+  cream:      "#fffdfa"   # primary background — warm off-white
+  ink:        "#111111"   # primary foreground — near-black
+  dark:       "#0d0d0b"   # dark mode background
+  # Accent — infrastructure/monitoring layer only (off-air scene, T-Pot)
+  green:      "#39ff14"   # active/healthy signal
+  amber:      "#ffab00"   # warning signal
+  red:        "#ff1744"   # critical/attack signal
+  text_dark:  "#d1fae5"   # text on dark backgrounds
+  # Rules and borders
+  rule:       "rgba(17,17,17,0.15)"    # light mode dotted rule
+  rule_dark:  "rgba(209,250,229,0.08)" # dark mode dotted rule
+  # Muted
+  muted:      "rgba(17,17,17,0.35)"    # secondary text, light mode
+
+typography:
+  mono: "'Share Tech Mono', 'Courier New', monospace"
+  sans: "'Bricolage Grotesque', system-ui, sans-serif"
+  # Usage
+  # mono: handles, labels, metadata, code, ticker, PGP, ORCID
+  # sans: body prose, cause names, longer descriptive text
+
+borders:
+  rule_style: "1px dotted"
+  rule_color: "#cccccc"   # light mode
+  rule_radius: "0"        # no border-radius on rules — flat
+  # No grid lines. No box shadows. No gradients.
+  # Structure comes from whitespace and dotted rules only.
+
+mark:
+  # Eye in lens — 25° diagonal
+  # Three rotation variants for quarterly rotation
+  variants:
+    a: "favicon-a.svg"   # full barrel — Q1/Q4
+    b: "favicon-b.svg"   # cropped Warhol — Q2
+    c: "favicon-c.svg"   # iris only — Q3
+  active: "favicon-a.svg"
+  rotation_deg: 25
+  sizes: [16, 32, 48, 64, 180, 192, 512]
+  # Colors match cream/ink — invert for dark mode via CSS filter:invert(1)
+
+do_not:
+  - grid lines as background texture
+  - gradients
+  - drop shadows
+  - border-radius > 4px (scene containers only)
+  - cyberpunk / neon palette outside off-air/monitoring context
+  - borrowed institutional branding (AT&T, Bell Labs, etc.)
+  - DevOps framing
+  - "Investor / Thought leader" language
+  - Da Planet Security in Dwight Spencer persona contexts
+
+assets:
+  bmac_header:    "bmac-header.png"      # 1600×400
+  favicon_svg:    "favicon.svg"          # active quarterly variant
+  favicon_a:      "favicon-a.svg"
+  favicon_b:      "favicon-b.svg"
+  favicon_c:      "favicon-c.svg"
+  bg_liminal:     "img/bg-liminal-space.jpg"
+  bg_privacy:     "img/bg-privacy-please.jpg"
