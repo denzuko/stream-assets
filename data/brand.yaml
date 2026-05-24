@@ -57,11 +57,11 @@ do_not:
   - grid lines as background texture
   - gradients
   - drop shadows
-  - border-radius > 4px (scene containers only)
-  - cyberpunk / neon palette outside off-air/monitoring context
-  - "borrowed institutional branding (AT&T, Bell Labs, etc.)"
+  - border-radius over 4px except scene containers
+  - cyberpunk or neon palette outside off-air context
+  - borrowed institutional branding AT&T Bell Labs etc
   - DevOps framing
-  - "Investor / Thought leader" language
+  - Investor or Thought Leader language
   - Da Planet Security in Dwight Spencer persona contexts
 
 assets:
