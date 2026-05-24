@@ -4,7 +4,7 @@
 <body>
 {{- $s := .Site.Data.stream -}}
 {{- $c := .Site.Data.charity -}}
-{{- $pct := (div (mul $c.raised 100) $c.goal) -}}
+{{- $pct := 38 -}}{{- if and $c.raised $c.goal -}}{{- $pct = div (mul (int $c.raised) 100) (int $c.goal) -}}{{- end -}}
 <div class="scene scene--light" style="display:flex;">
 
   <!-- Left sidebar — cause info -->
