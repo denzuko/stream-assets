@@ -1,0 +1,144 @@
+/* stream-assets design tokens — mirrors dwightaspencer.com */
+:root {
+  --cream:  #fffdfa;
+  --ink:    #111111;
+  --dark:   #0d0d0b;
+  --muted:  rgba(17,17,17,.35);
+  --rule:   rgba(17,17,17,.15);
+  --green:  #39ff14;
+  --amber:  #ffab00;
+  --red:    #ff1744;
+  --text-d: rgba(209,250,229,.75);
+  --rule-d: rgba(209,250,229,.08);
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-sans: 'Bricolage Grotesque', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: transparent;
+  font-family: var(--font-mono);
+  overflow: hidden;
+}
+
+/* Scene base — fills OBS browser source viewport */
+.scene {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.scene--light { background: var(--cream); }
+.scene--dark  { background: var(--dark); }
+
+/* Dotted rule — site language */
+.rule {
+  border: none;
+  border-top: 1px dotted var(--rule);
+  width: 100%;
+}
+
+.rule--centered { width: 38%; }
+
+/* Blinking cursor */
+.cursor {
+  display: inline-block;
+  width: .52em;
+  height: .78em;
+  background: currentColor;
+  margin-left: .06em;
+  vertical-align: -.08em;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* Ticker */
+.ticker {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 34px;
+  background: rgba(13,13,11,.95);
+  border-top: 1px dotted var(--rule-d);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.ticker--light {
+  background: rgba(255,253,250,.95);
+  border-top: 1px dotted var(--rule);
+}
+
+.ticker__inner {
+  white-space: nowrap;
+  font-size: 11px;
+  color: rgba(209,250,229,.35);
+  animation: ticker 28s linear infinite;
+}
+
+.ticker--light .ticker__inner { color: rgba(17,17,17,.3); }
+
+@keyframes ticker {
+  from { transform: translateX(100vw); }
+  to   { transform: translateX(-100%); }
+}
+
+/* Topbar */
+.topbar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 38px;
+  background: rgba(13,13,11,.95);
+  border-bottom: 1px dotted var(--rule-d);
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  gap: 20px;
+  font-size: 12px;
+  color: rgba(209,250,229,.45);
+}
+
+/* Eye/lens mark */
+.eyemark { display: block; }
+
+/* Attack dot */
+.dot {
+  position: absolute;
+  border-radius: 50%;
+  animation: ping 2.5s ease-out infinite;
+}
+
+@keyframes ping {
+  0%   { opacity: .9; transform: scale(1); }
+  70%  { opacity: 0;  transform: scale(4); }
+  100% { opacity: 0; }
+}
+
+/* Iris rotation for intermission */
+@keyframes rotate-iris {
+  from { transform: rotate(-25deg); }
+  to   { transform: rotate(335deg); }
+}
+
+.iris--rotating {
+  animation: rotate-iris 14s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+/* Transition wipe */
+@keyframes wipe-left {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+@keyframes wipe-right {
+  from { width: 0; left: auto; right: 0; }
+  to   { width: 100%; }
+}
+
+/* HTMX live update fade */
+.htmx-settling { opacity: 0; transition: opacity 200ms ease; }
+.htmx-settled  { opacity: 1; }

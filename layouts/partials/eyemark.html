@@ -1,0 +1,14 @@
+{{- $size := .size | default 80 -}}
+{{- $bg := .bg | default "#fffdfa" -}}
+{{- $fg := .fg | default "#111111" -}}
+<svg class="eyemark" width="{{ $size }}" height="{{ $size }}" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle cx="80" cy="80" r="78" fill="none" stroke="{{ $fg }}" stroke-width="2"/>
+  <circle cx="80" cy="80" r="62" fill="{{ $bg }}"/>
+  <circle cx="80" cy="80" r="54" fill="{{ $fg }}"/>
+  <ellipse cx="80" cy="80" rx="48" ry="28" fill="{{ $bg }}" transform="rotate(-25 80 80)"
+    {{- if .rotate }} class="iris--rotating"{{ end -}}/>
+  <circle cx="80" cy="80" r="22" fill="{{ $fg }}"/>
+  <circle cx="80" cy="80" r="11" fill="{{ $bg }}"/>
+  <circle cx="80" cy="80" r="4" fill="{{ $fg }}"/>
+  <circle cx="73" cy="74" r="2.5" fill="{{ $bg }}"/>
+</svg>

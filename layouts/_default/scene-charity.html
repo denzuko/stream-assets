@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>{{ partial "head.html" . }}<title>scene-charity</title></head>
+<body>
+{{- $s := .Site.Data.stream -}}
+{{- $c := .Site.Data.charity -}}
+{{- $pct := (div (mul $c.raised 100) $c.goal) -}}
+<div class="scene scene--light" style="display:flex;">
+
+  <!-- Left sidebar — cause info -->
+  <div style="
+    width:27%;background:#111;display:flex;flex-direction:column;
+    padding:clamp(12px,2.5vw,26px);
+    border-right:1px dotted rgba(255,253,250,.08);
+    flex-shrink:0;
+  ">
+    <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:rgba(255,253,250,.28);margin-bottom:8px;">
+      this stream supports
+    </div>
+    <div style="font-family:var(--font-sans);font-size:clamp(14px,2.2vw,26px);font-weight:500;color:#fffdfa;line-height:1.2;">
+      {{ $c.cause }}
+    </div>
+    <div style="font-family:var(--font-mono);font-size:clamp(8px,.85vw,10px);color:rgba(255,253,250,.3);margin-top:8px;line-height:1.55;">
+      {{ $c.description }}
+    </div>
+
+    <div style="flex:1"></div>
+
+    <!-- Goal bar — HTMX refreshes every 30s -->
+    <div id="goal-block"
+      hx-get="/goal.json"
+      hx-trigger="every 30s"
+      hx-swap="innerHTML"
+      hx-target="#goal-block">
+      <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;color:rgba(255,253,250,.22);margin-bottom:5px;">
+        fundraising goal
+      </div>
+      <div style="height:2px;background:rgba(255,253,250,.08);margin-bottom:5px;">
+        <div style="height:100%;width:{{ $pct }}%;background:#fffdfa;"></div>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:clamp(7px,.85vw,10px);color:rgba(255,253,250,.35);">
+        ${{ $c.raised }} raised · ${{ $c.goal }} goal
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content area -->
+  <div style="flex:1;display:flex;flex-direction:column;">
+
+    <!-- Topbar -->
+    <div style="
+      height:clamp(28px,4vw,42px);border-bottom:1px dotted #ccc;
+      display:flex;align-items:center;padding:0 18px;gap:12px;
+    ">
+      <span style="font-family:var(--font-mono);font-size:clamp(8px,1.1vw,13px);color:#111;letter-spacing:.08em;">
+        CHARITY STREAM<span class="cursor" style="color:#111"></span>
+      </span>
+      <span style="font-family:var(--font-mono);font-size:clamp(7px,.9vw,10px);color:rgba(17,17,17,.3);margin-left:auto;">
+        {{ $c.month }} · {{ $s.handle }}
+      </span>
+    </div>
+
+    <!-- Content area — stream goes here in OBS as underlying source -->
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;">
+      <span style="font-family:var(--font-mono);font-size:13px;color:rgba(17,17,17,.1);letter-spacing:.08em;">
+        [ stream content ]
+      </span>
+    </div>
+
+    <!-- Footer -->
+    <div style="
+      height:clamp(24px,3.5vw,36px);border-top:1px dotted #ccc;
+      display:flex;align-items:center;padding:0 18px;justify-content:space-between;
+    ">
+      {{ range $s.links }}
+      <span style="font-family:var(--font-mono);font-size:clamp(6px,.8vw,10px);color:rgba(17,17,17,.22);">
+        {{ .label }}
+      </span>
+      {{ end }}
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

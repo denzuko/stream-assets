@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>{{ partial "head.html" . }}<title>scene-transition</title>
+<style>
+.wipe-top {
+  position:absolute;top:0;left:0;right:0;height:50%;
+  background:#111;
+  animation:wipe 0.5s cubic-bezier(.77,0,.18,1) forwards;
+}
+.wipe-bot {
+  position:absolute;bottom:0;left:0;right:0;height:50%;
+  background:#111;
+  animation:wipe 0.5s cubic-bezier(.77,0,.18,1) 0.05s forwards;
+}
+@keyframes wipe{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+.mark-wrap {
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  z-index:10;opacity:.4;
+  animation:markfade .5s ease .2s both;
+}
+@keyframes markfade{from{opacity:0;transform:scale(.9)}to{opacity:.4;transform:scale(1)}}
+.rule-center {
+  position:absolute;top:50%;left:0;right:0;
+  border:none;border-top:1px dotted rgba(255,253,250,.15);
+  z-index:5;
+}
+</style>
+</head>
+<body>
+{{- $s := .Site.Data.stream -}}
+<div class="scene" style="background:#fffdfa;">
+  <div class="wipe-top"></div>
+  <div class="wipe-bot"></div>
+  <hr class="rule-center">
+  <div class="mark-wrap">
+    {{ partial "eyemark.html" (dict "size" 90 "bg" "#111" "fg" "#fffdfa") }}
+  </div>
+  <div style="position:absolute;bottom:clamp(10px,2vw,22px);left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:clamp(7px,1vw,12px);color:#111;opacity:.2;letter-spacing:.1em;white-space:nowrap;z-index:15;">
+    {{ $s.handle }}
+  </div>
+</div>
+</body>
+</html>

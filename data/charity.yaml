@@ -1,0 +1,20 @@
+active: true
+cause: Internet Archive
+description: Preserving the web's memory — one page at a time.
+url: https://archive.org/donate
+goal: 1000
+raised: 380
+month: June 2026
+causes:
+  - name: Girls Who Code
+    url: https://girlswhocode.com
+  - name: Internet Archive
+    url: https://archive.org/donate
+  - name: 2600 Magazine
+    url: https://www.2600.com
+  - name: Restore The Fourth
+    url: https://restorethe4th.com/donate
+  - name: Hackers for Charity
+    url: https://hackersforcharity.org
+  - name: Aaron Swartz Foundation
+    url: https://www.aaronswartzfoundation.org

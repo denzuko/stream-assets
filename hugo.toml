@@ -1,0 +1,8 @@
+baseURL       = "https://denzuko.github.io/stream-assets/"
+languageCode  = "en-us"
+title         = "stream-assets"
+theme         = ""
+disableKinds  = ["home","section","taxonomy","term","RSS","sitemap","robotsTXT"]
+
+[outputs]
+  page = ["HTML"]

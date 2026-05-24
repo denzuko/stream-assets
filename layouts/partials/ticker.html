@@ -1,0 +1,7 @@
+{{- $s := .Site.Data.stream -}}
+{{- $light := .light | default false -}}
+<div class="ticker{{ if $light }} ticker--light{{ end }}">
+  <div class="ticker__inner">
+    {{ $s.ticker }} ···
+  </div>
+</div>
