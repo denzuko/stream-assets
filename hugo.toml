@@ -1,4 +1,4 @@
-baseURL       = "https://denzuko.github.io/stream-assets/"
+baseURL       = "https://stream-assets.dwightaspencer.com/"
 locale        = "en-us"
 title         = "stream-assets"
 disableKinds  = ["section","taxonomy","term","RSS","sitemap","robotsTXT"]
