@@ -1,0 +1,86 @@
+# author.yaml — mirrors dwightaspencer.com/data/author.yaml
+# Update both when bios change. Source of truth is dwightaspencer.com.
+
+name: "Dwight Spencer"
+handle_community: "denzuko"
+handle_commercial: "zekodun"
+pgp: "0x5DCBF78E3F9C3FE3"
+orcid: "0009-0001-0066-4646"
+iana_pen: "42387"
+duns: "039-271-257"
+sam_sin: "54151S"
+site: "dwightaspencer.com"
+
+bio_short: "Principal @ Da Planet Security (est. 2003) · RT4 Technology Chair · Internet Archive contributor. Systems design, infrastructure sovereignty, digital civil liberties. Writing at dwightaspencer.com · HPR contributor · InfraGard · HOPE. PGP 0x5DCBF78E3F9C3FE3"
+
+bio_github: "Principal @ Da Planet Security · RT4 Technology Chair · Internet Archive. Infrastructure sovereignty · DevSecOps · Common Lisp · POSIX sh. IANA PEN 42387 · SAM.gov SIN 54151S · ORCID 0009-0001-0066-4646. dwightaspencer.com"
+
+bio_oneliner: "Principal @ Da Planet Security (est. 2003) · RT4 Tech Chair · dwightaspencer.com · PGP 0x5DCBF78E3F9C3FE3"
+
+bio_long: |
+  Dwight Spencer is the principal of Da Planet Security, a managed security
+  and infrastructure practice founded in 2003 as CompuTEK Industries and
+  operating continuously since. In 2005, before the term existed, he was
+  presenting what would later be coined DevOps to channel partners including
+  IBM and PuppetLabs — a lineage documented in the Agile Manifesto (signatory,
+  CompuTEK Industries, May 2009) and DFW 2600 presentation archive.
+
+  Da Planet Security (SAM.gov SIN 54151S · DUNS 039-271-257 · IANA PEN 42387)
+  delivers high-availability infrastructure, secure service delivery, and
+  DevSecOps transformation for enterprise, nonprofit, and public sector clients.
+
+  Technology Chair, Restore The Fourth — the national organization advancing
+  Fourth Amendment protections against AI-powered surveillance infrastructure.
+  Developer and Archivist Team Member at the Internet Archive. InfraGard
+  member. HOPE Conference volunteer.
+
+  Research and writing at dwightaspencer.com addresses systems design,
+  infrastructure sovereignty, and the legal and technical dimensions of
+  surveillance accountability. Author of The Watchers You Fed (forthcoming).
+
+bio_expert_witness: |
+  Dwight Spencer is the principal of Da Planet Security, a managed security
+  and infrastructure practice with operations dating to 2003. He has delivered
+  security architecture, identity management, and DevSecOps transformation for
+  enterprise clients including Capital One and AirBNB, and for public sector
+  and nonprofit organizations. A signatory of the Agile Manifesto (2009), he
+  has contributed to infrastructure and security methodology development over
+  two decades. He is registered on SAM.gov (SIN 54151S) and holds IANA Private
+  Enterprise Number 42387. He is a member of InfraGard and a Developer and
+  Archivist Team Member at the Internet Archive. His research on surveillance
+  infrastructure and systems design is published at dwightaspencer.com.
+  ORCID 0009-0001-0066-4646.
+
+platforms:
+  - label: "dwightaspencer.com"
+    url: "https://dwightaspencer.com"
+    handle: "denzuko"
+    bio_key: "bio_long"
+  - label: "GitHub"
+    url: "https://github.com/denzuko"
+    handle: "denzuko"
+    bio_key: "bio_github"
+  - label: "LinkedIn"
+    url: "https://linkedin.com/in/dwightspencer"
+    handle: "dwightspencer"
+    bio_key: "bio_long"
+  - label: "Twitch"
+    url: "https://twitch.tv/zekodun"
+    handle: "zekodun"
+    bio_key: "bio_short"
+  - label: "Reddit"
+    url: "https://reddit.com/u/denzuko"
+    handle: "denzuko"
+    bio_key: "bio_short"
+  - label: "Buy Me a Coffee"
+    url: "https://buymeacoffee.com/denzuko"
+    handle: "denzuko"
+    bio_key: "bio_short"
+  - label: "X / Twitter"
+    url: "https://x.com/denzuko"
+    handle: "denzuko"
+    bio_key: "bio_oneliner"
+  - label: "SEAK / JurisPro"
+    url: "https://dwightaspencer.com"
+    handle: ""
+    bio_key: "bio_expert_witness"
