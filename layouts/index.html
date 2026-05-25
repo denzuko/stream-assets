@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   {{ partial "head.html" . }}
+  <link rel="stylesheet" href="/css/brand.css">
   <title>stream-assets · {{ .Site.Data.stream.handle }}</title>
   <style>
     body { background: #fffdfa; color: #111; min-height: 100vh; overflow: auto; }
@@ -132,6 +133,7 @@
   <span class="header-title">stream-assets</span>
   <span class="header-handle">twitch.tv/{{ $s.handle }} · {{ $s.site }}</span>
   <button class="header-rebuild" onclick="copyRebuild()">↺ rebuild webhook</button>
+  <button id="theme-toggle" class="header-rebuild" style="margin-left:.5rem;">☾ dark mode</button>
 </div>
 
 <div class="grid">
