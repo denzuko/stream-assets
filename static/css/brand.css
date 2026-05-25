@@ -1,7 +1,8 @@
 /**
  * brand.css — Dwight Spencer / denzuko / zekodun
- * Canonical design tokens for the entire persona ecosystem.
- * Import this in any project: dwightaspencer.com, stream-assets, publications.
+ * Canonical design tokens ONLY — no resets, no body rules.
+ * Import this before any site stylesheet. It exports CSS custom properties
+ * and utility classes only. It does NOT reset margins, padding, or body styles.
  *
  * Source of truth: data/brand.yaml in denzuko/stream-assets
  */
@@ -38,30 +39,28 @@
   --mark-rotation: -25deg;
 }
 
-/* Dark mode — system preference */
+/* Dark mode token overrides — custom properties only, no element rules */
 @media (prefers-color-scheme: dark) {
   :root {
     --cream: #0d0d0b;
     --ink:   #d1fae5;
+    --rule:  rgba(209,250,229,.12);
   }
 }
 
-/* Base reset */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-/* Body defaults */
-body {
-  background: var(--cream);
-  color: var(--ink);
-  font-family: var(--font-mono);
-  -webkit-font-smoothing: antialiased;
+[data-theme="dark"] {
+  --cream: #0d0d0b;
+  --ink:   #d1fae5;
+  --rule:  rgba(209,250,229,.12);
 }
 
-/* Dotted rule — the site's structural element */
+/* ── Utility classes ─────────────────────────────────────────────────────── */
+
+/* Dotted rule — site structural element */
 .rule {
   border: none;
   border-top: 1px dotted currentColor;
-  opacity: .15;
+  opacity: .2;
   width: 100%;
 }
 .rule--centered { width: 38%; }
@@ -79,7 +78,7 @@ body {
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-/* Eye/lens mark — dark mode invert */
+/* Eye/lens mark dark mode invert */
 .eyemark { display: block; }
 @media (prefers-color-scheme: dark) {
   .eyemark { filter: invert(1); }
@@ -100,11 +99,9 @@ body {
   to   { transform: translateX(-100%); }
 }
 
-/* Utility — muted text */
-.muted     { opacity: .35; }
-.very-muted { opacity: .15; }
-
-/* Utility — mono label */
+/* Utility */
+.muted      { opacity: .55; }
+.very-muted { opacity: .2; }
 .label {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -113,7 +110,7 @@ body {
   opacity: .45;
 }
 
-/* Ping dot — attack/monitoring indicator */
+/* Ping dot — monitoring indicator */
 .dot {
   border-radius: 50%;
   animation: ping 2.5s ease-out infinite;
