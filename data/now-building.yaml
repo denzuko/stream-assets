@@ -1,0 +1,27 @@
+# now-building.yaml — what's on the bench right now
+# Edit this file and push to update all surfaces simultaneously:
+#   - Twitch scene overlay
+#   - OBS "Now Building" panel fragment
+#   - Site sidebar widget (via HTMX pull from /fragments/now-building.html)
+#   - Dashboard embed
+#   - Chatbot context
+
+current:
+  title: "Stream tooling + clacks.h"
+  description: "Building the Twitch bot and stream overlay system live on stream. Also working on clacks.h optical telegraph protocol in C99."
+  repo: "https://github.com/denzuko/stream-assets"
+  status: active   # active | paused | shipped
+
+queue:
+  - title: "pbx-quadlet-setup v4.1.x"
+    description: "Asterisk PJSIP quadlet — NANP dialplan corrections"
+    repo: "https://github.com/denzuko/pbx-quadlet-setup"
+  - title: "Observability stack lab"
+    description: "node_exporter, cAdvisor, Promtail/Loki, HAProxy stats"
+    repo: ""
+
+shipped:
+  - title: "stream-assets"
+    description: "Hugo-based OBS overlays, brand guide, dark mode toggle"
+    repo: "https://github.com/denzuko/stream-assets"
+    date: "2026-05-25"

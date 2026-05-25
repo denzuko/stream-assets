@@ -1,0 +1,30 @@
+{{- $c := .Site.Data.charity -}}
+{{- $pct := 0 -}}
+{{- if and $c.raised $c.goal -}}
+  {{- $pct = div (mul (int $c.raised) 100) (int $c.goal) -}}
+{{- end -}}
+<div class="fragment fragment--charity-goal" style="
+  font-family:'Share Tech Mono',monospace;
+  background:var(--ink,#111);
+  color:var(--cream,#fffdfa);
+  border-radius:2px;
+  overflow:hidden;
+  padding:12px 14px;
+">
+  <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;opacity:.3;margin-bottom:6px">
+    this stream supports
+  </div>
+  <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:500;margin-bottom:4px">
+    {{ $c.cause }}
+  </div>
+  <div style="font-size:10px;opacity:.4;margin-bottom:10px;line-height:1.5">
+    {{ $c.description }}
+  </div>
+  <div style="height:2px;background:rgba(255,253,250,.08);border-radius:1px;margin-bottom:5px">
+    <div style="height:100%;width:{{ $pct }}%;background:rgba(255,253,250,.9);border-radius:1px;transition:width .5s ease"></div>
+  </div>
+  <div style="font-size:10px;opacity:.4;display:flex;justify-content:space-between">
+    <span>${{ $c.raised }} raised</span>
+    <span>${{ $c.goal }} goal</span>
+  </div>
+</div>

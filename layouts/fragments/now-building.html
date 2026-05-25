@@ -1,0 +1,56 @@
+{{- $nb := .Site.Data.now_building -}}
+{{- $s  := .Site.Data.stream -}}
+<div class="fragment fragment--now-building" style="
+  font-family:'Share Tech Mono',monospace;
+  background:var(--cream,#fffdfa);
+  color:var(--ink,#111);
+  border:1px dotted rgba(17,17,17,.2);
+  border-radius:2px;
+  overflow:hidden;
+">
+  <div style="
+    background:var(--ink,#111);
+    color:var(--cream,#fffdfa);
+    padding:8px 12px;
+    font-size:10px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  ">
+    <span>Now building</span>
+    {{ if eq $nb.current.status "active" }}
+    <span style="display:flex;align-items:center;gap:5px">
+      <span style="width:6px;height:6px;border-radius:50%;background:#39ff14;animation:ping 2s ease-out infinite"></span>
+      active
+    </span>
+    {{ else if eq $nb.current.status "paused" }}
+    <span style="opacity:.4">paused</span>
+    {{ end }}
+  </div>
+  <div style="padding:12px 14px;">
+    <div style="font-size:14px;font-weight:500;margin-bottom:4px;font-family:'Bricolage Grotesque',sans-serif">
+      {{ $nb.current.title }}
+    </div>
+    <div style="font-size:11px;opacity:.55;line-height:1.6;margin-bottom:8px">
+      {{ $nb.current.description }}
+    </div>
+    {{ if $nb.current.repo }}
+    <a href="{{ $nb.current.repo }}" style="font-size:10px;color:inherit;opacity:.35;text-decoration:none;letter-spacing:.04em">
+      {{ $nb.current.repo | replaceRE "https://github.com/" "" }} ↗
+    </a>
+    {{ end }}
+  </div>
+  {{ if $nb.queue }}
+  <div style="border-top:1px dotted rgba(17,17,17,.1);padding:8px 14px">
+    <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;opacity:.3;margin-bottom:6px">Up next</div>
+    {{ range first 2 $nb.queue }}
+    <div style="font-size:11px;opacity:.5;margin-bottom:3px">{{ .title }}</div>
+    {{ end }}
+  </div>
+  {{ end }}
+</div>
+<style>
+@keyframes ping{0%{opacity:.9;transform:scale(1)}70%{opacity:0;transform:scale(3)}100%{opacity:0}}
+</style>

@@ -203,6 +203,45 @@
   </div>
 </div>
 
+<!-- Fragments — composable HTML blocks -->
+<div style="padding:0 2rem 3rem;">
+  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.45;padding:.75rem 0;border-bottom:1px dotted #aaa;margin-bottom:1.5rem;">
+    Fragments — composable HTMX blocks
+  </div>
+  <p style="font-family:var(--font-mono);font-size:11px;opacity:.4;margin-bottom:1.5rem;line-height:1.7;">
+    Self-contained HTML blocks. Pull into any surface via HTMX, iframe, or direct URL.<br>
+    Update <code>data/now-building.yaml</code> or <code>data/charity.yaml</code> and push — all surfaces update on next build.
+  </p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;">
+    {{- $fragments := slice
+      (dict "label" "now-building"  "url" "/fragments/now-building/"  "desc" "Current work · edit data/now-building.yaml")
+      (dict "label" "charity-goal"  "url" "/fragments/charity-goal/"  "desc" "Donation progress bar · edit data/charity.yaml")
+      (dict "label" "stream-status" "url" "/fragments/stream-status/" "desc" "Live/offline indicator · HTMX auto-refresh 60s")
+      (dict "label" "ticker"        "url" "/fragments/ticker/"        "desc" "Scrolling links · edit stream.yaml ticker field")
+    -}}
+    {{- range $fragments }}
+    <div style="border:1px dotted #aaa;border-radius:2px;padding:.75rem 1rem;">
+      <div style="font-family:var(--font-mono);font-size:13px;margin-bottom:.3rem;">{{ .label }}</div>
+      <div style="font-family:var(--font-mono);font-size:10px;opacity:.4;margin-bottom:.75rem;line-height:1.6;">{{ .desc }}</div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+        <a href="{{ .url }}" target="_blank"
+           style="font-family:var(--font-mono);font-size:10px;color:inherit;opacity:.45;border:1px dotted #aaa;padding:2px 7px;border-radius:2px;text-decoration:none;">
+          open ↗
+        </a>
+        <button onclick="copyUrl('{{ $.Site.BaseURL }}{{ trimPrefix "/" .url }}')"
+           style="font-family:var(--font-mono);font-size:10px;color:inherit;opacity:.45;border:1px dotted #aaa;padding:2px 7px;border-radius:2px;background:none;cursor:pointer;">
+          copy url
+        </button>
+        <button onclick="copyHtmx('{{ $.Site.BaseURL }}{{ trimPrefix "/" .url }}')"
+           style="font-family:var(--font-mono);font-size:10px;color:inherit;opacity:.45;border:1px dotted #aaa;padding:2px 7px;border-radius:2px;background:none;cursor:pointer;">
+          copy hx-get
+        </button>
+      </div>
+    </div>
+    {{- end }}
+  </div>
+</div>
+
 <div class="footer">
   <div style="display:flex;align-items:center;gap:12px;">
     <svg width="20" height="20" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -220,6 +259,15 @@
 </div>
 
 <script>
+function copyHtmx(url) {
+  const snippet = `hx-get="${url}" hx-trigger="load, every 30s" hx-swap="outerHTML"`;
+  navigator.clipboard.writeText(snippet).then(() => {
+    const btns = document.querySelectorAll('button');
+    btns.forEach(b => { if (b.textContent === 'copy hx-get') b.textContent = 'copied'; });
+    setTimeout(() => btns.forEach(b => { if (b.textContent === 'copied') b.textContent = 'copy hx-get'; }), 1500);
+  });
+}
+
 function copyUrl(url) {
   navigator.clipboard.writeText(url).then(() => {
     const btns = document.querySelectorAll('.card-btn');

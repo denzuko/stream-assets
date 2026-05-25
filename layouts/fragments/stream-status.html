@@ -1,0 +1,26 @@
+{{- $s := .Site.Data.stream -}}
+<div class="fragment fragment--stream-status"
+  hx-get="/fragments/stream-status/"
+  hx-trigger="every 60s"
+  hx-swap="outerHTML"
+  style="
+    font-family:'Share Tech Mono',monospace;
+    font-size:11px;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:4px 10px;
+    border:1px dotted rgba(17,17,17,.2);
+    border-radius:2px;
+    color:var(--ink,#111);
+  ">
+  <span id="status-dot" style="
+    width:6px;height:6px;border-radius:50%;
+    background:#39ff14;
+    animation:ping 2s ease-out infinite;
+  "></span>
+  <span>twitch.tv/{{ $s.handle }}</span>
+</div>
+<style>
+@keyframes ping{0%{opacity:.9;transform:scale(1)}70%{opacity:0;transform:scale(3)}100%{opacity:0}}
+</style>

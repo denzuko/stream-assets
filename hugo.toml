@@ -1,11 +1,12 @@
 baseURL       = "https://stream-assets.cdn.dwightaspencer.com/"
 locale        = "en-us"
 title         = "stream-assets"
-disableKinds  = ["section","taxonomy","term","RSS","sitemap","robotsTXT"]
+disableKinds  = ["taxonomy","term","RSS","sitemap","robotsTXT"]
 
 [outputs]
-  home = ["HTML"]
-  page = ["HTML"]
+  home    = ["HTML"]
+  page    = ["HTML"]
+  section = ["HTML"]
 
 [minify]
   minifyOutput = false
