@@ -1,6 +1,6 @@
 {{- $s := .Site.Data.stream -}}
 <div class="fragment fragment--stream-status"
-  hx-get="/fragments/stream-status/"
+  hx-get="{{ "/fragments/stream-status/" | absURL }}"
   hx-trigger="every 60s"
   hx-swap="outerHTML"
   style="

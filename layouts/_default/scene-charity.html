@@ -28,7 +28,7 @@
 
     <!-- Goal bar — HTMX refreshes every 30s -->
     <div id="goal-block"
-      hx-get="/goal.json"
+      hx-get="{{ "/goal.json" | absURL }}"
       hx-trigger="every 30s"
       hx-swap="innerHTML"
       hx-target="#goal-block">

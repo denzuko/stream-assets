@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   {{ partial "head.html" . }}
-  <link rel="stylesheet" href="/css/brand.css">
+  <link rel="stylesheet" href="{{ "/css/brand.css" | relURL }}">
   <title>stream-assets · {{ .Site.Data.stream.handle }}</title>
   <style>
     body { min-height: 100vh; overflow: auto; transition: background .2s, color .2s; }
@@ -188,11 +188,11 @@
       <div style="font-family:var(--font-mono);font-size:13px;">{{ .label }}</div>
       <div style="font-family:var(--font-mono);font-size:10px;opacity:.45;">{{ .desc }}</div>
       <div style="display:flex;gap:.5rem;margin-top:.25rem;">
-        <a href="{{ .url }}" target="_blank"
+        <a href="{{ .url | absURL }}" target="_blank"
            style="font-family:var(--font-mono);font-size:10px;color:inherit;opacity:.45;border:1px dotted #aaa;padding:2px 7px;border-radius:2px;text-decoration:none;">
           open ↗
         </a>
-        <a href="{{ .url }}" download
+        <a href="{{ .url | absURL }}" download
            style="font-family:var(--font-mono);font-size:10px;color:inherit;opacity:.45;border:1px dotted #aaa;padding:2px 7px;border-radius:2px;text-decoration:none;">
           ↓ download
         </a>
@@ -224,15 +224,15 @@
       <div style="font-family:var(--font-mono);font-size:13px;margin-bottom:.3rem;">{{ .label }}</div>
       <div style="font-family:var(--font-mono);font-size:10px;opacity:.4;margin-bottom:.75rem;line-height:1.6;">{{ .desc }}</div>
       <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-        <a href="{{ .url }}" target="_blank"
+        <a href="{{ .url | absURL }}" target="_blank"
            style="font-family:var(--font-mono);font-size:10px;color:inherit;opacity:.45;border:1px dotted #aaa;padding:2px 7px;border-radius:2px;text-decoration:none;">
           open ↗
         </a>
-        <button onclick="copyUrl('{{ $.Site.BaseURL | strings.TrimRight "/" }}{{ .url }}')"
+        <button onclick="copyUrl('{{ .url | absURL }}')"
            style="font-family:var(--font-mono);font-size:10px;color:inherit;opacity:.45;border:1px dotted #aaa;padding:2px 7px;border-radius:2px;background:none;cursor:pointer;">
           copy url
         </button>
-        <button onclick="copyHtmx('{{ $.Site.BaseURL | strings.TrimRight "/" }}{{ .url }}')"
+        <button onclick="copyHtmx('{{ .url | absURL }}')"
            style="font-family:var(--font-mono);font-size:10px;color:inherit;opacity:.45;border:1px dotted #aaa;padding:2px 7px;border-radius:2px;background:none;cursor:pointer;">
           copy hx-get
         </button>

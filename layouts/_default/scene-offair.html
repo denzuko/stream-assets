@@ -18,7 +18,7 @@
 
   <!-- Topbar — HTMX refreshes stats every 60s if endpoint exists -->
   <div class="topbar"
-    hx-get="/stats.json"
+    hx-get="{{ "/stats.json" | absURL }}"
     hx-trigger="every 60s"
     hx-swap="innerHTML"
     hx-target="#stats">
