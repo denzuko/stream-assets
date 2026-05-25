@@ -228,11 +228,11 @@
            style="font-family:var(--font-mono);font-size:10px;color:inherit;opacity:.45;border:1px dotted #aaa;padding:2px 7px;border-radius:2px;text-decoration:none;">
           open ↗
         </a>
-        <button onclick="copyUrl('{{ $.Site.BaseURL }}{{ trimPrefix "/" .url }}')"
+        <button onclick="copyUrl('{{ $.Site.BaseURL | strings.TrimRight "/" }}{{ .url }}')"
            style="font-family:var(--font-mono);font-size:10px;color:inherit;opacity:.45;border:1px dotted #aaa;padding:2px 7px;border-radius:2px;background:none;cursor:pointer;">
           copy url
         </button>
-        <button onclick="copyHtmx('{{ $.Site.BaseURL }}{{ trimPrefix "/" .url }}')"
+        <button onclick="copyHtmx('{{ $.Site.BaseURL | strings.TrimRight "/" }}{{ .url }}')"
            style="font-family:var(--font-mono);font-size:10px;color:inherit;opacity:.45;border:1px dotted #aaa;padding:2px 7px;border-radius:2px;background:none;cursor:pointer;">
           copy hx-get
         </button>
