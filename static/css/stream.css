@@ -142,3 +142,52 @@ body {
 /* HTMX live update fade */
 .htmx-settling { opacity: 0; transition: opacity 200ms ease; }
 .htmx-settled  { opacity: 1; }
+
+/* ── Theme overrides ─────────────────────────────────────────────────────── */
+
+/* Dark theme — scene and gallery */
+[data-theme="dark"] .scene--light {
+  background: #0d0d0b !important;
+}
+[data-theme="dark"] .scene--light .cursor {
+  background: #d1fae5;
+}
+
+/* Light theme — dark scenes */
+[data-theme="light"] .scene--dark {
+  background: #fffdfa !important;
+}
+[data-theme="light"] .scene--dark .topbar {
+  background: rgba(255,253,250,.95);
+  border-bottom-color: rgba(17,17,17,.12);
+  color: rgba(17,17,17,.55);
+}
+[data-theme="light"] .scene--dark .ticker {
+  background: rgba(255,253,250,.95);
+  border-top-color: rgba(17,17,17,.12);
+}
+[data-theme="light"] .scene--dark .ticker__inner {
+  color: rgba(17,17,17,.45);
+}
+
+/* Gallery index dark mode */
+[data-theme="dark"] body {
+  background: #0d0d0b;
+  color: #d1fae5;
+}
+[data-theme="dark"] .header,
+[data-theme="dark"] .footer {
+  border-color: rgba(209,250,229,.12);
+}
+[data-theme="dark"] .card {
+  background: #111;
+  border-color: rgba(209,250,229,.12);
+}
+[data-theme="dark"] .card:hover { border-color: #d1fae5; }
+[data-theme="dark"] .card-meta { border-top-color: rgba(209,250,229,.1); }
+[data-theme="dark"] .card-name,
+[data-theme="dark"] .card-btn,
+[data-theme="dark"] .header-title,
+[data-theme="dark"] .header-handle,
+[data-theme="dark"] .header-rebuild { color: #d1fae5; border-color: rgba(209,250,229,.2); }
+[data-theme="dark"] .card-preview--light { background: #1a1a18; }
