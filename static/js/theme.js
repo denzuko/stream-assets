@@ -1,75 +1,64 @@
 /**
  * theme.js — stream-assets theme controller
+ * Index: sets theme. Scenes: reads and applies theme.
  *
- * Index page: sets theme, broadcasts to all open scene windows via BroadcastChannel.
- * Scene pages: reads theme on load, listens for live updates via BroadcastChannel.
- *
- * Storage key: 'denzuko-stream-theme'
- * Values: 'light' | 'dark'
- * Default: 'dark' (most scenes are dark-primary)
+ * Key: 'denzuko-stream-theme'  Values: 'light' | 'dark'  Default: 'dark'
  */
 
-const THEME_KEY  = 'denzuko-stream-theme';
-const CHANNEL    = new BroadcastChannel('stream-theme');
-const DEFAULT    = 'dark';
+const THEME_KEY = 'denzuko-stream-theme';
+const CHANNEL   = new BroadcastChannel('stream-theme');
+const DEFAULT   = 'dark';
 
-/** Apply theme to the document root */
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-}
-
-/** Read stored preference, fallback to default */
 function storedTheme() {
   try { return localStorage.getItem(THEME_KEY) || DEFAULT; }
   catch { return DEFAULT; }
 }
 
-/** Persist and broadcast a theme change (index use) */
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  // Override body background directly — wins over any inline style
+  document.body.style.background = theme === 'dark' ? '#0d0d0b' : '#fffdfa';
+  document.body.style.color      = theme === 'dark' ? '#d1fae5' : '#111111';
+}
+
 function setTheme(theme) {
   try { localStorage.setItem(THEME_KEY, theme); } catch {}
   applyTheme(theme);
   CHANNEL.postMessage({ theme });
-  // Also update all open scene iframes if on the index page
-  document.querySelectorAll('iframe').forEach(f => {
-    try { f.contentDocument?.documentElement.setAttribute('data-theme', theme); } catch {}
-  });
 }
 
-/** Scene init — apply on load and listen for broadcast updates */
-function sceneInit() {
-  applyTheme(storedTheme());
-  CHANNEL.onmessage = e => {
-    if (e.data?.theme) applyTheme(e.data.theme);
-  };
-}
-
-/** Index init — apply stored theme and wire toggle button */
-function indexInit() {
-  const current = storedTheme();
-  applyTheme(current);
-
+function updateToggle(theme) {
   const btn = document.getElementById('theme-toggle');
-  if (!btn) return;
+  if (btn) btn.textContent = theme === 'dark' ? '☀ light' : '☾ dark';
+}
 
-  btn.textContent = current === 'dark' ? '☀ light mode' : '☾ dark mode';
+// ── Scene pages ──────────────────────────────────────────────────
+function sceneInit() {
+  const t = storedTheme();
+  applyTheme(t);
+  CHANNEL.onmessage = e => { if (e.data?.theme) applyTheme(e.data.theme); };
+}
 
-  btn.addEventListener('click', () => {
+// ── Index page ───────────────────────────────────────────────────
+function indexInit() {
+  const t = storedTheme();
+  applyTheme(t);
+  updateToggle(t);
+
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
     const next = storedTheme() === 'dark' ? 'light' : 'dark';
     setTheme(next);
-    btn.textContent = next === 'dark' ? '☀ light mode' : '☾ dark mode';
+    updateToggle(next);
   });
-
-  // Live-update iframes on toggle — re-apply after a tick so iframe has loaded
-  CHANNEL.onmessage = e => {
-    if (e.data?.theme) {
-      btn.textContent = e.data.theme === 'dark' ? '☀ light mode' : '☾ dark mode';
-    }
-  };
 }
 
-// Auto-detect context
-if (document.getElementById('theme-toggle')) {
-  document.addEventListener('DOMContentLoaded', indexInit);
-} else {
-  document.addEventListener('DOMContentLoaded', sceneInit);
-}
+// Apply immediately before DOMContentLoaded to prevent flash
+(function() {
+  const t = storedTheme();
+  document.documentElement.setAttribute('data-theme', t);
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('theme-toggle')) indexInit();
+  else sceneInit();
+});
