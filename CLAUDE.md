@@ -170,6 +170,7 @@ curl -X POST \
 |---|---|
 | `data/now-building.yaml` | Starting a new stream session, project ships |
 | `data/charity.yaml` | Monthly charity stream changes cause or updates goal/raised |
+| `data/panels.yaml` | Twitch panel copy changes (except Now Building — that's now-building.yaml) |
 | `data/stream.yaml` | Ticker text changes, links update |
 | `data/author.yaml` | Bio copy changes — also update `dwightaspencer.com/data/author.yaml` |
 | `data/brand.yaml` | Design token changes — also update consuming sites |

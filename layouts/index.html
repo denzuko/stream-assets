@@ -150,6 +150,7 @@
 <div class="tabs">
   <button class="tab active" onclick="switchTab('scenes',this)">Scenes</button>
   <button class="tab" onclick="switchTab('fragments',this)">Fragments</button>
+  <button class="tab" onclick="switchTab('panels',this)">Panels</button>
   <button class="tab" onclick="switchTab('bios',this)">Bios</button>
   <button class="tab" onclick="switchTab('brand',this)">Brand</button>
   <button class="tab" onclick="switchTab('docs',this)">Docs</button>
@@ -207,6 +208,41 @@
         <a href="{{ .url | absURL }}" target="_blank" class="card-btn">open ↗</a>
         <button onclick="copyUrl('{{ .url | absURL }}')" class="card-btn">copy url</button>
         <button onclick="copyHtmx('{{ .url | absURL }}')" class="card-btn">copy hx-get</button>
+      </div>
+    </div>
+    {{- end }}
+  </div>
+</div>
+
+
+<!-- ── PANELS ─────────────────────────────────────────────────────────────── -->
+<div id="tab-panels" class="tab-content">
+  <div class="section-label">Twitch panels — copy and paste into Creator Dashboard</div>
+  <p style="font-family:var(--font-mono);font-size:11px;opacity:.4;margin-bottom:1.5rem;line-height:1.7;">
+    Static panels. The Now Building panel is a live HTMX fragment — see Fragments tab.<br>
+    Update copy in <code>data/panels.yaml</code> and push.
+  </p>
+  <div class="grid">
+    {{- $p := .Site.Data.panels -}}
+
+    {{- range $p.panels }}
+    <div class="bio-card">
+      <div class="bio-card-head">
+        <span class="bio-platform">{{ .title }}</span>
+        <button class="bio-copy" onclick="copyPanel(this, `{{ .id }}`)">copy</button>
+      </div>
+      <div class="bio-text" id="panel-{{ .id }}">
+        {{- if .body }}{{ .body }}{{ end -}}
+        {{- if .links }}
+          {{- range .links }}{{ .label }} — {{ .url }}
+          {{ end -}}
+        {{- end -}}
+        {{- if .causes }}
+          {{- range .causes }}{{ . }}
+          {{ end -}}
+        {{- end -}}
+        {{- if .link }}{{ .cta }}
+{{ .link.label }} — {{ .link.url }}{{ end -}}
       </div>
     </div>
     {{- end }}
@@ -361,6 +397,16 @@ function copyHtmx(url) {
 function copyBio(btn, text) {
   const decoded = text.replace(/&#39;/g, "'").replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
   navigator.clipboard.writeText(decoded).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'copied';
+    setTimeout(() => btn.textContent = orig, 1500);
+  });
+}
+
+function copyPanel(btn, id) {
+  const el = document.getElementById('panel-' + id);
+  const text = el ? el.innerText.trim() : '';
+  navigator.clipboard.writeText(text).then(() => {
     const orig = btn.textContent;
     btn.textContent = 'copied';
     setTimeout(() => btn.textContent = orig, 1500);

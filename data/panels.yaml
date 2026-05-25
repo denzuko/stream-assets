@@ -1,0 +1,53 @@
+# panels.yaml — Twitch panel copy for twitch.tv/zekodun
+# Edit here, push, and the Panels tab in the dashboard updates.
+# Copy text from the dashboard and paste into Twitch Creator Dashboard.
+#
+# Note: "Now Building" panel is driven by data/now-building.yaml
+# and rendered as an HTMX fragment — not a static panel.
+
+panels:
+  - id: about
+    title: "About"
+    body: |
+      Infrastructure built live.
+      Systems design, privacy research, and the tools that outlast the companies that built them.
+
+      No fixed schedule — streams when something interesting is happening.
+
+  - id: links
+    title: "Links"
+    links:
+      - label: "dwightaspencer.com"
+        url: "https://dwightaspencer.com"
+      - label: "hackerpublicradio.org"
+        url: "https://hackerpublicradio.org"
+      - label: "buymeacoffee.com/denzuko"
+        url: "https://buymeacoffee.com/denzuko"
+
+  - id: schedule
+    title: "Schedule"
+    body: |
+      No fixed schedule.
+      Follow to get notified.
+
+      Usually late nights, Albany time.
+
+  - id: support
+    title: "Support"
+    body: |
+      If something was useful — a post, a piece of code, an episode — a coffee keeps the work going.
+    link:
+      label: "buymeacoffee.com/denzuko"
+      url: "https://buymeacoffee.com/denzuko"
+    cta: "One less dependency."
+
+  - id: charity
+    title: "Charity Streams"
+    body: "Monthly · fundraising for:"
+    causes:
+      - "Girls Who Code"
+      - "Internet Archive"
+      - "2600"
+      - "Restore The Fourth"
+      - "Hackers for Charity"
+      - "Aaron Swartz Foundation"
