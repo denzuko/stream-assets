@@ -6,3 +6,6 @@ disableKinds  = ["section","taxonomy","term","RSS","sitemap","robotsTXT"]
 [outputs]
   home = ["HTML"]
   page = ["HTML"]
+
+[minify]
+  minifyOutput = false

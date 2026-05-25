@@ -19,9 +19,9 @@
   --text-dark:  #d1fae5;
 
   /* Rules */
-  --rule:       rgba(17,17,17,.15);
+  --rule:       rgba(17,17,17,.2);
   --rule-dark:  rgba(209,250,229,.08);
-  --muted:      rgba(17,17,17,.35);
+  --muted:      rgba(17,17,17,.55);
 
   /* Typography */
   --font-mono:  'Share Tech Mono', 'Courier New', monospace;

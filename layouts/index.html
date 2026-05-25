@@ -24,7 +24,7 @@
       font-family: var(--font-mono);
       font-size: 13px;
       color: #111;
-      opacity: .35;
+      opacity: .55;
     }
     .header-rebuild {
       margin-left: auto;
@@ -165,7 +165,10 @@
 </div>
 
 <div class="footer">
-  <span>denzuko.github.io/stream-assets</span>
+  <div style="display:flex;align-items:center;gap:12px;">
+    {{ partial "eyemark.html" (dict "size" 20 "bg" "#fffdfa" "fg" "#111") }}
+    <span>{{ $s.handle }} · denzuko.github.io/stream-assets</span>
+  </div>
   <span>{{ $s.pgp }}</span>
 </div>
 
