@@ -7,9 +7,9 @@
 #   - Chatbot context
 
 current:
-  title: "Stream tooling + clacks.h"
-  description: "Building the Twitch bot and stream overlay system live on stream. Also working on clacks.h optical telegraph protocol in C99."
-  repo: "https://github.com/denzuko/stream-assets"
+  title: "BMAC membership launch + Twitch groundbreaking"
+  description: "Standing up the buymeacoffee.com/denzuko membership tiers and wiring the Twitch channel. Patronage model for practitioners — sustaining the work."
+  repo: "https://buymeacoffee.com/denzuko/membership"
   status: active   # active | paused | shipped
 
 queue:
@@ -19,9 +19,16 @@ queue:
   - title: "Observability stack lab"
     description: "node_exporter, cAdvisor, Promtail/Loki, HAProxy stats"
     repo: ""
+  - title: "clacks.h + rotoscoped platformer"
+    description: "Optical telegraph protocol in C99, driving the game engine layer"
+    repo: "https://github.com/denzuko/stream-assets"
 
 shipped:
   - title: "stream-assets"
     description: "Hugo-based OBS overlays, brand guide, dark mode toggle"
     repo: "https://github.com/denzuko/stream-assets"
+    date: "2026-05-25"
+  - title: "dwightaspencer.com v2"
+    description: "Hugo migration, Pagefind search, 10 posts live"
+    repo: "https://github.com/denzuko/dwightspencer.com"
     date: "2026-05-25"
