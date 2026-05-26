@@ -66,6 +66,10 @@ do_not:
 
 assets:
   bmac_header:    "bmac-header.png"      # 1600×400
+  bmac_signal:    "bmac-tier-signal.png"  # 800×450
+  bmac_lab:       "bmac-tier-lab-access.png" # 800×450
+  bmac_rd_fund:   "bmac-tier-rd-fund.png"  # 800×450
+  bmac_sustainer: "bmac-tier-sustainer.png" # 800×450
   favicon_svg:    "favicon.svg"          # active quarterly variant
   favicon_a:      "favicon-a.svg"
   favicon_b:      "favicon-b.svg"
