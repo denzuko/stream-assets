@@ -65,6 +65,13 @@ do_not:
   - Da Planet Security in Dwight Spencer persona contexts
 
 assets:
+  # Twitch panel images — three variants
+  # A: 320x160 full panel with copy (standalone)
+  # D: 320x160 ink band header + copy below
+  # D-header: 320x60 ink band only (use with Twitch markdown copy field)
+  # panels: about, links, schedule, support, charity
+  panel_variants: ["a", "d", "d-header"]
+  panel_slugs: ["about", "links", "schedule", "support", "charity"]
   bmac_header:    "bmac-header.png"      # 1600×400
   bmac_signal:    "bmac-tier-signal.png"  # 800×450
   bmac_lab:       "bmac-tier-lab-access.png" # 800×450
