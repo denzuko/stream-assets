@@ -219,10 +219,39 @@
 <!-- ── PANELS ─────────────────────────────────────────────────────────────── -->
 <div id="tab-panels" class="tab-content">
   <div class="section-label">Twitch panels — copy and paste into Creator Dashboard</div>
-  <p style="font-family:var(--font-mono);font-size:11px;opacity:.4;margin-bottom:1.5rem;line-height:1.7;">
+  <p style="font-family:var(--font-mono);font-size:11px;opacity:.4;margin-bottom:1rem;line-height:1.7;">
     Static panels. The Now Building panel is a live HTMX fragment — see Fragments tab.<br>
     Update copy in <code>data/panels.yaml</code> and push.
   </p>
+
+  <div class="section-label" style="margin-top:1.5rem;">Panel images — three variants</div>
+  <p style="font-family:var(--font-mono);font-size:11px;opacity:.4;margin-bottom:1rem;line-height:1.7;">
+    <b>A</b> 320×160 — full panel, type included. Standalone.<br>
+    <b>D</b> 320×160 — ink band + copy. Bolder hierarchy.<br>
+    <b>D-header</b> 320×60 — ink band only. Use with Twitch markdown text field.
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:2rem;">
+    {{- $panels := slice "about" "links" "schedule" "support" "charity" -}}
+    {{- $variants := slice "a" "d" "d-header" -}}
+    {{- range $panels }}
+    {{- $slug := . }}
+    {{- range $variants }}
+    {{- $variant := . }}
+    {{- $url := printf "/assets/panel-%s-%s.png" $slug $variant }}
+    <div class="bio-card" style="padding:.75rem;">
+      <div class="bio-card-head" style="margin-bottom:.5rem;">
+        <span class="bio-platform">{{ $slug }}-{{ $variant }}</span>
+        <a href="{{ $url | absURL }}" download style="font-family:var(--font-mono);font-size:10px;opacity:.5;text-decoration:none;">↓ download</a>
+      </div>
+      <img src="{{ $url | absURL }}" alt="panel {{ $slug }} {{ $variant }}"
+        style="width:100%;border:1px solid rgba(0,0,0,.08);display:block;">
+    </div>
+    {{- end }}
+    {{- end }}
+  </div>
+
+  <div class="section-label" style="margin-top:1.5rem;">Panel copy</div>
   <div class="grid">
     {{- $p := .Site.Data.panels -}}
 
