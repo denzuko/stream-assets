@@ -1,0 +1,153 @@
+name: Render scene videos
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'layouts/_default/scene-offline.html'
+      - 'layouts/_default/scene-intro-video.html'
+      - 'data/stream.yaml'
+      - 'data/now-building.yaml'
+      - 'static/css/**'
+      - 'static/fonts/**'
+      - '.github/workflows/render-videos.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: latest
+          extended: false
+
+      - name: Build site
+        run: hugo --minify --gc
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Playwright
+        run: |
+          npm init -y
+          npm install playwright@latest
+          npx playwright install chromium --with-deps
+
+      - name: Install ffmpeg
+        run: sudo apt-get install -y ffmpeg
+
+      - name: Serve built site
+        run: |
+          cd public
+          python3 -m http.server 8080 &
+          echo "SERVER_PID=$!" >> $GITHUB_ENV
+          sleep 2
+
+      - name: Capture scene frames via Playwright
+        run: |
+          mkdir -p /tmp/frames/offline /tmp/frames/intro
+          node << 'SCRIPT'
+          const { chromium } = require('playwright');
+
+          async function captureFrames(url, outDir, durationSec, fps) {
+            const browser = await chromium.launch();
+            const page = await browser.newPage();
+            await page.setViewportSize({ width: 1920, height: 1080 });
+
+            // Pause all CSS animations at t=0 so we can scrub manually
+            await page.goto(url, { waitUntil: 'networkidle' });
+
+            const totalFrames = durationSec * fps;
+            const frameMs = 1000 / fps;
+
+            for (let i = 0; i < totalFrames; i++) {
+              const timeMs = i * frameMs;
+              // Advance animation timeline to this frame's time
+              await page.evaluate((t) => {
+                document.getAnimations().forEach(a => {
+                  a.currentTime = t;
+                });
+              }, timeMs);
+              const frame = String(i).padStart(5, '0');
+              await page.screenshot({
+                path: `${outDir}/${frame}.png`,
+                fullPage: false
+              });
+            }
+            await browser.close();
+          }
+
+          (async () => {
+            // Offline: 12s loop at 24fps — slow breathing mark
+            await captureFrames(
+              'http://localhost:8080/scene-offline/',
+              '/tmp/frames/offline',
+              12, 24
+            );
+            console.log('offline frames done');
+
+            // Intro: 8s reveal sequence at 24fps
+            await captureFrames(
+              'http://localhost:8080/scene-intro-video/',
+              '/tmp/frames/intro',
+              8, 24
+            );
+            console.log('intro frames done');
+          })();
+          SCRIPT
+
+      - name: Encode offline video
+        run: |
+          mkdir -p static/video
+          ffmpeg -y \
+            -framerate 24 \
+            -i /tmp/frames/offline/%05d.png \
+            -vf "scale=1920:1080:flags=lanczos" \
+            -c:v libx264 \
+            -crf 18 \
+            -preset slow \
+            -pix_fmt yuv420p \
+            -movflags +faststart \
+            static/video/scene-offline.mp4
+          echo "offline: $(du -sh static/video/scene-offline.mp4)"
+
+      - name: Encode intro video
+        run: |
+          ffmpeg -y \
+            -framerate 24 \
+            -i /tmp/frames/intro/%05d.png \
+            -vf "scale=1920:1080:flags=lanczos" \
+            -c:v libx264 \
+            -crf 18 \
+            -preset slow \
+            -pix_fmt yuv420p \
+            -movflags +faststart \
+            static/video/scene-intro.mp4
+          echo "intro: $(du -sh static/video/scene-intro.mp4)"
+
+      - name: Commit rendered videos
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add static/video/scene-offline.mp4 static/video/scene-intro.mp4
+          if git diff --staged --quiet; then
+            echo "No changes to video files — skipping commit"
+          else
+            git commit -m "chore(video): render scene-offline and scene-intro MP4s [skip ci]"
+            git push
+          fi
+
+      - name: Kill dev server
+        if: always()
+        run: kill $SERVER_PID 2>/dev/null || true

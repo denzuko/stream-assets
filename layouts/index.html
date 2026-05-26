@@ -360,6 +360,25 @@
     </div>
     {{- end }}
   </div>
+
+  <h3 style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:2rem 0 .75rem;">Rendered videos — CI-generated MP4s</h3>
+  <p style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;">Built automatically by GitHub Actions on changes to scene layouts or stream.yaml. Upload to Twitch offline screen or use as OBS media source.</p>
+  <div class="asset-grid">
+    {{- $videos := slice
+      (dict "label" "scene-offline.mp4" "url" "/video/scene-offline.mp4" "desc" "Offline screen — 12s loop, dark brand, breathing mark")
+      (dict "label" "scene-intro.mp4"   "url" "/video/scene-intro.mp4"   "desc" "Intro — 8s reveal sequence, sequential text, now-building")
+    -}}
+    {{- range $videos }}
+    <div class="asset-card">
+      <div class="asset-name">{{ .label }}</div>
+      <div class="asset-desc">{{ .desc }}</div>
+      <div class="asset-actions">
+        <a href="{{ .url | absURL }}" target="_blank" class="card-btn">open ↗</a>
+        <a href="{{ .url | absURL }}" download class="card-btn">↓ download</a>
+      </div>
+    </div>
+    {{- end }}
+  </div>
 </div>
 
 <!-- ── DOCS ───────────────────────────────────────────────────────────────── -->

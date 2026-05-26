@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>{{ partial "head.html" . }}<title>scene-offline</title></head>
+{{- $s := .Site.Data.stream -}}
+<body>
+<div class="scene scene--dark" style="display:flex;align-items:center;justify-content:center;flex-direction:column;">
+
+  <div class="mark" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0;animation:mark-appear 2s ease forwards .4s,breathe 8s ease-in-out 3s infinite;">
+    {{ partial "eyemark.html" (dict "size" 160 "bg" "#0d0d0b" "fg" "rgba(209,250,229,0.15)" "rotate" true) }}
+  </div>
+
+  <hr style="position:absolute;top:460px;left:calc(50% - 240px);width:0;height:1px;border:none;background:rgba(209,250,229,.12);animation:rule-expand 1.2s ease forwards 1.2s;">
+  <hr style="position:absolute;top:620px;left:calc(50% - 240px);width:0;height:1px;border:none;background:rgba(209,250,229,.12);animation:rule-expand 1.2s ease forwards 1.4s;">
+
+  <div style="position:absolute;top:474px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:72px;letter-spacing:.06em;color:rgba(209,250,229,.85);white-space:nowrap;opacity:0;animation:text-appear .8s ease forwards 1.8s;">
+    {{ $s.handle }}<span class="cursor" style="animation:blink 1s step-end 2.8s infinite;opacity:0;"></span>
+  </div>
+
+  <div style="position:absolute;top:558px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:18px;letter-spacing:.14em;color:rgba(209,250,229,.28);white-space:nowrap;opacity:0;animation:text-appear .8s ease forwards 2.4s;">
+    {{ $s.tagline }}
+  </div>
+
+  <div style="position:absolute;top:596px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:13px;letter-spacing:.18em;color:rgba(209,250,229,.18);white-space:nowrap;text-transform:uppercase;opacity:0;animation:text-appear .6s ease forwards 2.8s;">
+    offline
+  </div>
+
+  <div style="position:absolute;bottom:44px;left:48px;font-family:var(--font-mono);font-size:13px;line-height:1.9;letter-spacing:.07em;color:rgba(209,250,229,.22);opacity:0;animation:text-appear .6s ease forwards 3.2s;">
+    {{ $s.site }}<br>twitch.tv/{{ $s.handle }}
+  </div>
+  <div style="position:absolute;bottom:44px;right:48px;font-family:var(--font-mono);font-size:13px;line-height:1.9;letter-spacing:.07em;color:rgba(209,250,229,.22);text-align:right;opacity:0;animation:text-appear .6s ease forwards 3.2s;">
+    {{ $s.pgp }}<br>ORCID {{ $s.orcid }}
+  </div>
+
+</div>
+<style>
+@keyframes mark-appear{from{opacity:0}to{opacity:1}}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes rule-expand{from{width:0}to{width:480px}}
+@keyframes text-appear{from{opacity:0;transform:translateX(-50%) translateY(4px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.iris--rotating{animation:iris-rotate 120s linear infinite;transform-origin:80px 80px}
+@keyframes iris-rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+</style>
+</body>
+</html>

@@ -42,7 +42,9 @@ stream-assets/
 │   ├── index.html                # Tabbed dashboard (Scenes/Fragments/Bios/Brand/Docs)
 │   ├── _default/
 │   │   ├── scene-intro.html      # OBS: light, blinking cursor, liminal bg photo
+│   │   ├── scene-intro-video.html # Video export: dark brand, sequential reveals, N-O-D-E pacing
 │   │   ├── scene-offair.html     # OBS: dark, T-Pot dots, topbar, ticker
+│   │   ├── scene-offline.html    # Video export: dark brand, breathing mark, offline state
 │   │   ├── scene-charity.html    # OBS: dark sidebar cause/goal, HTMX live
 │   │   ├── scene-outro.html      # OBS: end card, links, single CTA
 │   │   ├── scene-intermission.html # OBS: dark, rotating iris, ticker
@@ -177,6 +179,39 @@ curl -X POST \
 | `data/series.yaml` | New post published, new series starts |
 
 ---
+
+## Video Pipeline
+
+`scene-offline` and `scene-intro-video` are rendered to MP4 by GitHub Actions
+on every push that touches their layouts, `data/stream.yaml`, or `data/now-building.yaml`.
+
+**Workflow:** `.github/workflows/render-videos.yml`
+- Hugo builds the site
+- Playwright (Chromium headless) scrubs CSS animation timeline frame-by-frame at 24fps
+- ffmpeg encodes PNG frames → H.264 MP4, CRF 18, yuv420p, faststart
+- MP4s committed to `static/video/` with `[skip ci]` to avoid loop
+- Available at CDN: `stream-assets.cdn.dwightaspencer.com/video/scene-offline.mp4`
+
+**Durations:**
+- `scene-offline.mp4` — 12s loop (breathing mark, offline state)
+- `scene-intro.mp4` — 8s reveal sequence (sequential text, now-building title)
+
+**Both use dark brand:** `#0d0d0b` bg, `rgba(209,250,229,…)` text, Share Tech Mono,
+eye/lens mark. N-O-D-E aesthetic — one element per beat, long holds, no transitions.
+
+**To trigger a re-render without a code change:**
+```sh
+curl -X POST \
+  -H "Authorization: token $GH_TOKEN" \
+  -H "Accept: application/vnd.github+json" \
+  https://api.github.com/repos/denzuko/stream-assets/dispatches \
+  -d '{"event_type":"rebuild"}'
+```
+Note: `workflow_dispatch` trigger also available via Actions UI.
+
+**Upload destinations:**
+- Twitch offline screen: Creator Dashboard → Channel → Offline screen → Upload
+- OBS media source: Add Source → Media Source → local file or URL
 
 ## OBS Setup
 
