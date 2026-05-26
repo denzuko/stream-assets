@@ -151,6 +151,7 @@
   <button class="tab active" onclick="switchTab('scenes',this)">Scenes</button>
   <button class="tab" onclick="switchTab('fragments',this)">Fragments</button>
   <button class="tab" onclick="switchTab('panels',this)">Panels</button>
+  <button class="tab" onclick="switchTab('bmac',this)">BMAC</button>
   <button class="tab" onclick="switchTab('bios',this)">Bios</button>
   <button class="tab" onclick="switchTab('brand',this)">Brand</button>
   <button class="tab" onclick="switchTab('docs',this)">Docs</button>
@@ -243,6 +244,34 @@
         {{- end -}}
         {{- if .link }}{{ .cta }}
 {{ .link.label }} — {{ .link.url }}{{ end -}}
+      </div>
+    </div>
+    {{- end }}
+  </div>
+</div>
+
+
+<!-- ── BMAC ──────────────────────────────────────────────────────────────── -->
+<div id="tab-bmac" class="tab-content">
+  <div class="section-label">Buy Me a Coffee — membership tiers</div>
+  <p style="font-family:var(--font-mono);font-size:11px;opacity:.4;margin-bottom:1.5rem;line-height:1.7;">
+    Implement at buymeacoffee.com/denzuko/membership<br>
+    Framing: sustaining the work, not exclusive content.<br>
+    Edit copy in <code>data/bmac.yaml</code> and push.
+  </p>
+  <div class="grid">
+    {{- range .Site.Data.bmac.tiers }}
+    <div class="bio-card">
+      <div class="bio-card-head">
+        <span class="bio-platform">{{ .name }} — ${{ .price_monthly }}/mo</span>
+        <button class="bio-copy" onclick="copyBio(this, {{ .description | htmlEscape | jsonify }})">copy</button>
+      </div>
+      <div class="bio-text">{{ .description }}</div>
+      <div style="font-family:var(--font-mono);font-size:10px;opacity:.4;margin-top:.5rem;">
+        Audience: {{ .audience }}
+        {{- if .perks }}
+        <br>Perks: {{ delimit .perks " · " }}
+        {{- end }}
       </div>
     </div>
     {{- end }}

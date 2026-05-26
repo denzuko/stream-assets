@@ -1,0 +1,60 @@
+# bmac.yaml — Buy Me a Coffee membership tier definitions
+# Edit here and push — dashboard Bios tab will reflect the copy.
+# Implement tiers at: https://buymeacoffee.com/denzuko/membership
+#
+# Framing: not "exclusive content" — "sustaining the work"
+# Audience: practitioners, HPR listeners, RT4 community, security researchers
+# Entity separation: Da Planet Security pipeline separate from RT4/personal
+
+cta: "One less dependency."
+url: "https://buymeacoffee.com/denzuko"
+
+tiers:
+  - id: signal
+    name: "Signal"
+    price_monthly: 5
+    description: |
+      Keep the signal going. Covers hosting, domain costs, and coffee.
+      No perks, no exclusive content — just sustaining the work.
+    audience: "Anyone who found value in a post, episode, or piece of code."
+
+  - id: lab
+    name: "Lab Access"
+    price_monthly: 12
+    description: |
+      Early access to research notes, draft articles, and lab writeups
+      before they're published. Behind-the-scenes on infrastructure
+      projects, HPR episodes, and the book.
+    audience: "Practitioners, HPR listeners, infrastructure people."
+    perks:
+      - "Draft articles and research notes before publication"
+      - "Lab notes on active infrastructure projects"
+      - "Behind-the-scenes on HPR episode production"
+
+  - id: research
+    name: "R&D Fund"
+    price_monthly: 25
+    description: |
+      Direct support for the research pipeline — the book, the privacy
+      infrastructure work, and the RT4 technical chair work. Your name
+      in the acknowledgements if you want it.
+    audience: "People who care about the Fourth Amendment and infrastructure sovereignty."
+    perks:
+      - "Everything in Lab Access"
+      - "Acknowledgement in The Watchers You Fed (opt-in)"
+      - "Early access to book chapters as they're drafted"
+      - "Direct Q&A channel for research questions"
+
+  - id: sustainer
+    name: "Sustainer"
+    price_monthly: 50
+    description: |
+      Sustaining membership for the long arc. Covers a meaningful portion
+      of the research, infrastructure, and publishing work annually.
+      For practitioners and organizations who want the work to continue.
+    audience: "Security teams, practitioners, organizations."
+    perks:
+      - "Everything in R&D Fund"
+      - "Annual infrastructure sovereignty briefing (written)"
+      - "Priority response on expert witness referral inquiries"
+      - "Da Planet Security pipeline — entity separation applies"
