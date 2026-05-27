@@ -35,7 +35,7 @@ jobs:
           extended: false
 
       - name: Build site
-        run: hugo --minify --gc
+        run: hugo --minify --gc --baseURL "http://localhost:8080/"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -68,32 +68,23 @@ jobs:
             const browser = await chromium.launch();
             const page = await browser.newPage();
             await page.setViewportSize({ width: 1920, height: 1080 });
-
-            // Pause all CSS animations at t=0 so we can scrub manually
             await page.goto(url, { waitUntil: 'networkidle' });
 
             const totalFrames = durationSec * fps;
             const frameMs = 1000 / fps;
 
             for (let i = 0; i < totalFrames; i++) {
-              const timeMs = i * frameMs;
-              // Advance animation timeline to this frame's time
-              await page.evaluate((t) => {
-                document.getAnimations().forEach(a => {
-                  a.currentTime = t;
-                });
-              }, timeMs);
               const frame = String(i).padStart(5, '0');
               await page.screenshot({
                 path: `${outDir}/${frame}.png`,
                 fullPage: false
               });
+              await page.waitForTimeout(frameMs);
             }
             await browser.close();
           }
 
           (async () => {
-            // Offline: 12s loop at 24fps — slow breathing mark
             await captureFrames(
               'http://localhost:8080/scene-offline/',
               '/tmp/frames/offline',
@@ -101,7 +92,6 @@ jobs:
             );
             console.log('offline frames done');
 
-            // Intro: 8s reveal sequence at 24fps
             await captureFrames(
               'http://localhost:8080/scene-intro-video/',
               '/tmp/frames/intro',
