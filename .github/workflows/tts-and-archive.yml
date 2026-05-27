@@ -1,0 +1,129 @@
+name: TTS overlay and archive upload
+
+on:
+  workflow_run:
+    workflows: ["Render scene videos"]
+    types: [completed]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [archive-upload]
+
+permissions:
+  contents: read
+
+jobs:
+  tts-and-upload:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name != 'workflow_run' }}
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y ffmpeg curl python3-pip
+          pip3 install internetarchive --break-system-packages
+
+          # Install piper TTS
+          curl -sL https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_linux_x86_64.tar.gz \
+            | tar -xz -C /tmp
+          sudo mv /tmp/piper/piper /usr/local/bin/piper
+          sudo mv /tmp/piper/libpiper_phonemize.so.1.2.0 /usr/local/lib/ 2>/dev/null || true
+          sudo ldconfig 2>/dev/null || true
+
+          # Download British English voice model (alan-medium — natural, flat delivery)
+          mkdir -p /tmp/piper-voices
+          curl -sL "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/alan/medium/en_GB-alan-medium.onnx" \
+            -o /tmp/piper-voices/en_GB-alan-medium.onnx
+          curl -sL "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/alan/medium/en_GB-alan-medium.onnx.json" \
+            -o /tmp/piper-voices/en_GB-alan-medium.onnx.json
+
+      - name: Download rendered MP4s from CDN
+        run: |
+          mkdir -p /tmp/video
+          curl -sL "https://stream-assets.cdn.dwightaspencer.com/video/scene-intro.mp4" \
+            -o /tmp/video/scene-intro.mp4
+          curl -sL "https://stream-assets.cdn.dwightaspencer.com/video/scene-offline.mp4" \
+            -o /tmp/video/scene-offline.mp4
+          echo "intro: $(du -sh /tmp/video/scene-intro.mp4)"
+          echo "offline: $(du -sh /tmp/video/scene-offline.mp4)"
+
+      - name: Generate TTS — intro only
+        run: |
+          mkdir -p /tmp/audio
+
+          # Intro: "stream starting." — flat delivery, pause before it lands
+          # Length calibrated to arrive ~5.5s in, after descriptor line fades
+          echo "stream starting." | piper \
+            --model /tmp/piper-voices/en_GB-alan-medium.onnx \
+            --output_file /tmp/audio/intro-voice.wav
+
+          # Add 5.5s silence before the spoken line, then 1s tail
+          ffmpeg -y \
+            -f lavfi -i anullsrc=r=22050:cl=mono -t 5.5 \
+            -i /tmp/audio/intro-voice.wav \
+            -f lavfi -i anullsrc=r=22050:cl=mono -t 1.0 \
+            -filter_complex "[0][1][2]concat=n=3:v=0:a=1[out]" \
+            -map "[out]" \
+            /tmp/audio/intro-timed.wav
+
+          echo "TTS generated: $(du -sh /tmp/audio/intro-timed.wav)"
+
+      - name: Mix TTS into intro video
+        run: |
+          mkdir -p /tmp/final
+
+          # Mix voice at -18dB under any ambient — scene is silent so this is clean
+          ffmpeg -y \
+            -i /tmp/video/scene-intro.mp4 \
+            -i /tmp/audio/intro-timed.wav \
+            -filter_complex "[1:a]volume=1.0[voice];[voice]apad[padded]" \
+            -map 0:v \
+            -map "[padded]" \
+            -c:v copy \
+            -c:a aac -b:a 128k \
+            -shortest \
+            /tmp/final/scene-intro-voiced.mp4
+
+          # Offline stays silent — copy as-is
+          cp /tmp/video/scene-offline.mp4 /tmp/final/scene-offline-final.mp4
+
+          echo "voiced intro: $(du -sh /tmp/final/scene-intro-voiced.mp4)"
+
+      - name: Upload to Internet Archive
+        env:
+          IA_ACCESS_KEY: ${{ secrets.IA_ACCESS_KEY }}
+          IA_SECRET_KEY: ${{ secrets.IA_SECRET_KEY }}
+        run: |
+          # Configure ia CLI
+          mkdir -p ~/.config/internetarchive
+          cat > ~/.config/internetarchive/ia.ini << EOF
+          [s3]
+          access = ${IA_ACCESS_KEY}
+          secret = ${IA_SECRET_KEY}
+          EOF
+
+          # Upload intro video (voiced)
+          ia upload zekodun-stream-scenes \
+            /tmp/final/scene-intro-voiced.mp4 \
+            --metadata="title:zekodun stream intro scene" \
+            --metadata="creator:Dwight Spencer" \
+            --metadata="subject:streaming;infrastructure;privacy;open source;zekodun;denzuko" \
+            --metadata="description:Twitch stream intro scene for twitch.tv/zekodun — infrastructure built live, tools that resist surveillance. dwightaspencer.com" \
+            --metadata="licenseurl:https://creativecommons.org/licenses/by/4.0/" \
+            --metadata="mediatype:movies" \
+            --checksum
+
+          # Upload offline video (silent)
+          ia upload zekodun-stream-scenes \
+            /tmp/final/scene-offline-final.mp4 \
+            --metadata="title:zekodun offline scene" \
+            --metadata="creator:Dwight Spencer" \
+            --metadata="subject:streaming;infrastructure;privacy;open source;zekodun;denzuko" \
+            --metadata="description:Twitch offline screen for twitch.tv/zekodun. Dark brand, breathing eye mark." \
+            --metadata="licenseurl:https://creativecommons.org/licenses/by/4.0/" \
+            --metadata="mediatype:movies" \
+            --checksum
+
+          echo "Uploaded to: https://archive.org/details/zekodun-stream-scenes"
