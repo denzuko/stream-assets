@@ -11,7 +11,11 @@ on:
       - 'static/css/**'
       - 'static/fonts/**'
       - '.github/workflows/render-videos.yml'
+    paths-ignore:
+      - 'static/video/**'
   workflow_dispatch:
+  repository_dispatch:
+    types: [render-videos]
 
 permissions:
   contents: write
@@ -144,7 +148,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to video files — skipping commit"
           else
-            git commit -m "chore(video): render scene-offline and scene-intro MP4s [skip ci]"
+            git commit -m "chore(video): render scene-offline and scene-intro MP4s"
             git push
           fi
 
