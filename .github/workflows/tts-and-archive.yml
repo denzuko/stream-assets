@@ -111,7 +111,8 @@ jobs:
             --metadata="creator:Dwight Spencer" \
             --metadata="subject:streaming;infrastructure;privacy;open source;zekodun;denzuko" \
             --metadata="description:Twitch stream intro scene for twitch.tv/zekodun — infrastructure built live, tools that resist surveillance. dwightaspencer.com" \
-            --metadata="licenseurl:https://creativecommons.org/licenses/by/4.0/" \
+            --metadata="licenseurl:https://spdx.org/licenses/BSD-2-Clause.html" \
+            --metadata="rights:BSD-2-Clause. If BSD-2-Clause cannot be applied, CC BY-NC-ND 4.0 applies." \
             --metadata="mediatype:movies" \
             --checksum
 
@@ -122,7 +123,8 @@ jobs:
             --metadata="creator:Dwight Spencer" \
             --metadata="subject:streaming;infrastructure;privacy;open source;zekodun;denzuko" \
             --metadata="description:Twitch offline screen for twitch.tv/zekodun. Dark brand, breathing eye mark." \
-            --metadata="licenseurl:https://creativecommons.org/licenses/by/4.0/" \
+            --metadata="licenseurl:https://spdx.org/licenses/BSD-2-Clause.html" \
+            --metadata="rights:BSD-2-Clause. If BSD-2-Clause cannot be applied, CC BY-NC-ND 4.0 applies." \
             --metadata="mediatype:movies" \
             --checksum
 

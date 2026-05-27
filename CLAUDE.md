@@ -227,6 +227,15 @@ Note: `workflow_dispatch` trigger also available via Actions UI.
 **Secrets required:** `IA_ACCESS_KEY`, `IA_SECRET_KEY` (stored in repo secrets)
 **IA item:** `https://archive.org/details/zekodun-stream-scenes`
 
+## License Policy
+
+All content in this repo is BSD-2-Clause unless explicitly stated otherwise.
+If BSD-2-Clause cannot be applied (e.g. platform requires a Creative Commons selection),
+the fallback is CC BY-NC-ND 4.0.
+
+This applies to: scene HTML, layouts, data files, rendered MP4s, static assets.
+Both license identifiers are set on IA uploads via `licenseurl` and `rights` metadata fields.
+
 **HPR episode automation (future):**
 HPR provides an rsync endpoint by email to registered hosts.
 When endpoint is confirmed: add a separate `hpr-sync.yml` workflow that:
