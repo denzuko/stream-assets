@@ -35,22 +35,26 @@
       {{ $s.tagline }}
     </div>
 
-    <div style="font-family:var(--font-mono);font-size:16px;letter-spacing:.1em;color:rgba(209,250,229,.18);opacity:0;animation:line-in .6s ease forwards 3.8s;">
+    <div style="font-family:var(--font-mono);font-size:15px;letter-spacing:.09em;color:rgba(209,250,229,.2);opacity:0;animation:line-in .6s ease forwards 3.7s;margin-bottom:20px;">
+      building infrastructure live · tools that resist surveillance
+    </div>
+
+    <div style="font-family:var(--font-mono);font-size:16px;letter-spacing:.1em;color:rgba(209,250,229,.18);opacity:0;animation:line-in .6s ease forwards 4.2s;">
       {{ $s.site }}
     </div>
 
-    <hr style="width:0;height:1px;border:none;background:rgba(209,250,229,.1);animation:rule-expand 1s ease forwards 4.2s;margin-top:48px;">
+    <hr style="width:0;height:1px;border:none;background:rgba(209,250,229,.1);animation:rule-expand 1s ease forwards 4.6s;margin-top:48px;">
 
   </div>
 
   <!-- Corner: PGP + ORCID -->
-  <div style="position:absolute;right:160px;bottom:60px;font-family:var(--font-mono);font-size:13px;line-height:2;letter-spacing:.08em;color:rgba(209,250,229,.18);text-align:right;opacity:0;animation:line-in .6s ease forwards 4.6s;">
+  <div style="position:absolute;right:160px;bottom:60px;font-family:var(--font-mono);font-size:13px;line-height:2;letter-spacing:.08em;color:rgba(209,250,229,.18);text-align:right;opacity:0;animation:line-in .6s ease forwards 5s;">
     {{ $s.pgp }}<br>ORCID {{ $s.orcid }}
   </div>
 
   <!-- Now building — top right -->
   {{ with $nb }}{{ with .current }}
-  <div style="position:absolute;right:160px;top:60px;font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;color:rgba(209,250,229,.15);text-align:right;opacity:0;animation:line-in .6s ease forwards 5s;">
+  <div style="position:absolute;right:160px;top:60px;font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;color:rgba(209,250,229,.15);text-align:right;opacity:0;animation:line-in .6s ease forwards 5.4s;">
     now: {{ .title }}
   </div>
   {{ end }}{{ end }}
