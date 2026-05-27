@@ -212,6 +212,29 @@ Note: `workflow_dispatch` trigger also available via Actions UI.
 **Upload destinations:**
 - Twitch offline screen: Creator Dashboard → Channel → Offline screen → Upload
 - OBS media source: Add Source → Media Source → local file or URL
+- Internet Archive: automated via `tts-and-archive.yml` after render completes
+
+## TTS + Internet Archive Pipeline
+
+**Workflow:** `.github/workflows/tts-and-archive.yml`
+- Triggers after `Render scene videos` completes successfully, or via dispatch
+- TTS engine: Piper (`en_GB-alan-medium`) — British, flat, human-sounding, no API cost
+- Intro video only gets voice overlay. Offline stays silent (ambient wallpaper, not announcement).
+- Voice line: *"stream starting."* — arrives at ~5.5s, after descriptor line fades
+- Mixed at clean level — scene has no ambient audio so no ducking needed
+- Uploads both MP4s to IA item `zekodun-stream-scenes` with CC BY 4.0
+
+**Secrets required:** `IA_ACCESS_KEY`, `IA_SECRET_KEY` (stored in repo secrets)
+**IA item:** `https://archive.org/details/zekodun-stream-scenes`
+
+**HPR episode automation (future):**
+HPR provides an rsync endpoint by email to registered hosts.
+When endpoint is confirmed: add a separate `hpr-sync.yml` workflow that:
+1. Receives episode audio file (dispatch payload or artifact)
+2. Uploads to IA under a separate item (`hpr-denzuko-episodes`)
+3. rsyncs to HPR endpoint
+Metadata template for HPR episodes: `subject: hacker public radio; privacy; infosec;
+infrastructure sovereignty; fourth amendment; self-hosting`
 
 ## OBS Setup
 
