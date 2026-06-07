@@ -1,0 +1,14 @@
+stub_id: INGEST-2026-06-12-A
+status: approved
+scheduled_at: '2026-06-12T09:00:00-04:00'
+topic: 'HOPE 26 submission: The Watchers You F.E.D. — Feds, Extractors, Data-brokers
+  and the AI capability compression that connects them'
+angle: 'The book''s thesis in the room: you are not the product. You are the mine.
+  The talk maps the technical architecture. The book follows pre-Labor Day 2026. Chapter
+  preview on the site.'
+source_urls: []
+site_slug: 04-watchers-you-fed
+site_url: https://dwightaspencer.com/posts/04-watchers-you-fed/
+target_fish: community
+pull_type: book
+pull_url: https://dwightaspencer.com/posts/04-watchers-you-fed/

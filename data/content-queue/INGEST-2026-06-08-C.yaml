@@ -1,0 +1,15 @@
+stub_id: INGEST-2026-06-08-C
+status: approved
+scheduled_at: '2026-06-08T15:00:00-04:00'
+topic: 'Podman Quadlet: systemd as the container orchestrator you already have — podman
+  generate systemd is deprecated'
+angle: .container file, systemd converts it to a service unit. journalctl for logs.
+  systemctl for lifecycle. No daemon, rootless, git-friendly. If you're running Docker
+  Compose on a single node, this is the migration path.
+source_urls:
+- https://ebourgess.dev/posts/podman-quadlet-production-containers/
+site_slug: 05-infrastructure-independence
+site_url: https://dwightaspencer.com/posts/05-infrastructure-independence/
+target_fish: practitioner
+pull_type: site
+pull_url: https://dwightaspencer.com/posts/05-infrastructure-independence/

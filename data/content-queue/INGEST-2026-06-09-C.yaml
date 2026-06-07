@@ -1,0 +1,14 @@
+stub_id: INGEST-2026-06-09-C
+status: approved
+scheduled_at: '2026-06-09T15:00:00-04:00'
+topic: Self-hosting as threat model alignment — not ideology, just matching infrastructure
+  choices to documented risks
+angle: The commercial data extraction layer is the part you control. Nextcloud, Signal,
+  Vaultwarden, Gitea on a Quadlet stack. Threat model first. Tooling second. Post
+  05 covers what to host and what not to.
+source_urls: []
+site_slug: 05-infrastructure-independence
+site_url: https://dwightaspencer.com/posts/05-infrastructure-independence/
+target_fish: community
+pull_type: site
+pull_url: https://dwightaspencer.com/posts/05-infrastructure-independence/

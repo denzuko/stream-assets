@@ -1,0 +1,15 @@
+stub_id: INGEST-2026-06-07-A
+status: approved
+scheduled_at: '2026-06-07T09:00:00-04:00'
+topic: Dragos SADM OT intrusion — an LLM identified an ICS gateway with no prior domain
+  knowledge
+angle: This is a visibility story, not an AI safety story. The boundary had no monitoring.
+  The breach failed on a credential mismatch, not detection. Fix the boundary first.
+source_urls:
+- https://www.dragos.com/blog/ai-assisted-ics-attack-water-utility
+- https://www.cybersecuritydive.com/news/anthropics-claude-compromise-mexican-water-utility/819710/
+site_slug: null
+site_url: null
+target_fish: practitioner
+pull_type: site
+pull_url: null

@@ -1,0 +1,15 @@
+stub_id: INGEST-2026-06-12-C
+status: approved
+scheduled_at: '2026-06-12T15:00:00-04:00'
+topic: 'neural.sh: LLM as UNIX text filter — the shell is the right unit of composition
+  and always was'
+angle: neural.vim lives in the editor. neural.sh lives in the shell. cat error.log
+  | neural 'what is causing this?' Composes with everything that speaks text streams.
+  Built May 2023 before the category existed. sr.ht repo, patches welcome.
+source_urls:
+- https://git.sr.ht/~denzuko/neural.sh
+site_slug: 11-neural-sh
+site_url: https://dwightaspencer.com/posts/11-neural-sh/
+target_fish: practitioner
+pull_type: site
+pull_url: https://dwightaspencer.com/posts/11-neural-sh/

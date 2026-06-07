@@ -1,0 +1,14 @@
+stub_id: INGEST-2026-06-10-B
+status: approved
+scheduled_at: '2026-06-10T12:00:00-04:00'
+topic: 'DevOps Before DevOps: presenting Developer Operations at 2007 meetups before
+  the term existed — and the IBM IP dispute that followed'
+angle: When practitioner knowledge gets a name, vendors sell it. When vendors sell
+  it, it becomes a role. When it becomes a role, the org chart rebuilds the silo the
+  practice was trying to eliminate. DevSecOps is in the same cycle now. Post 07.
+source_urls: []
+site_slug: 07-devops-before-devops
+site_url: https://dwightaspencer.com/posts/07-devops-before-devops/
+target_fish: practitioner
+pull_type: site
+pull_url: https://dwightaspencer.com/posts/07-devops-before-devops/
